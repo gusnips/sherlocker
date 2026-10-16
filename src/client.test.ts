@@ -132,6 +132,31 @@ describe("SherlockerClient", () => {
     expect(job.job_id).toBe("j1");
   });
 
+  test("calls the routes only the docs name, and reads a free-form answer", async () => {
+    const { sherlocker, requests } = clientFor(() => json({ total: 2 }));
+
+    await sherlocker.processos.getByNome({
+      nome: "Maria Souza",
+      documento: "12345678901",
+      fonte: "ambas",
+    });
+    const results = await sherlocker.processos.getJobResults("j1");
+    await sherlocker.rural.getJob("j2");
+
+    const first = new URL(requests[0].url);
+    expect(first.pathname).toBe("/api/v1/processos/nome");
+    expect(Object.fromEntries(first.searchParams)).toEqual({
+      nome: "Maria Souza",
+      documento: "12345678901",
+      fonte: "ambas",
+    });
+    expect(new URL(requests[1].url).pathname).toBe(
+      "/api/v1/processos/jobs/j1/results",
+    );
+    expect(new URL(requests[2].url).pathname).toBe("/api/v1/rural/jobs/j2");
+    expect(results.total).toBe(2);
+  });
+
   test("makes you pick an idempotency key where Sherlocker requires one", async () => {
     const { sherlocker, requests } = clientFor(() =>
       json({ id: "a1", status: "pending" }, 202),

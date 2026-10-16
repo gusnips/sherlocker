@@ -10327,7 +10327,7 @@
       "get": {
         "operationId": "getRegularidadeByCpf",
         "summary": "Regularidade de um CPF",
-        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.",
+        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.",
         "parameters": [
           {
             "name": "cpf",
@@ -10376,7 +10376,7 @@
       "get": {
         "operationId": "getRegularidadeByCnpj",
         "summary": "Regularidade de um CNPJ",
-        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.",
+        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.",
         "parameters": [
           {
             "name": "cnpj",
@@ -10443,6 +10443,115 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PerfilJobCreated"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/processos/nome": {
+      "get": {
+        "operationId": "getProcessosByNome",
+        "summary": "Processos por nome",
+        "description": "Busca direta por nome, sem CPF nem CNPJ. Com `documento`, a Sherlocker descarta as partes que já têm outro documento conhecido. Os arquivos OpenAPI da Sherlocker não trazem este endpoint, só a página \"Vínculo por documento x nome\" da documentação, que também não mostra a resposta. O SDK assume a mesma resposta de processos por CPF. Um nome pode ter homônimos: confirme com o documento antes de decidir algo.",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "required": true,
+            "description": "Nome da pessoa ou da empresa.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "documento",
+            "in": "query",
+            "required": false,
+            "description": "CPF ou CNPJ já conhecido, para tirar homônimos.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fonte",
+            "in": "query",
+            "required": false,
+            "description": "Fonte da busca. A documentação só mostra `ambas`.",
+            "schema": {
+              "type": "string",
+              "example": "ambas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Processos achados pelo nome",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessosResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/processos/jobs/{jobId}/results": {
+      "get": {
+        "operationId": "getProcessosJobResults",
+        "summary": "Resultados de um job de processos",
+        "description": "Lista o que o job de tempo real (`realtime=true`) já achou. É o `results_url` que a consulta devolve. Os arquivos OpenAPI da Sherlocker não trazem este endpoint e a documentação não mostra a resposta, então ela vem sem tipo.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultados do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rural/jobs/{jobId}": {
+      "get": {
+        "operationId": "getRuralJob",
+        "summary": "Status de um job de rural",
+        "description": "Status de uma consulta rural assíncrona. A página \"Propriedade Rural\" da documentação lista a rota, mas nenhum arquivo OpenAPI da Sherlocker a descreve e a resposta vem sem tipo.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
                 }
               }
             }

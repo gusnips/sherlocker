@@ -107,4 +107,30 @@ export class ProcessosModule {
       options,
     );
   }
+
+  /**
+   * Processos por nome
+   *
+   * Busca direta por nome, sem CPF nem CNPJ. Com `documento`, a Sherlocker descarta as partes que já têm outro documento conhecido. Os arquivos OpenAPI da Sherlocker não trazem este endpoint, só a página "Vínculo por documento x nome" da documentação, que também não mostra a resposta. O SDK assume a mesma resposta de processos por CPF. Um nome pode ter homônimos: confirme com o documento antes de decidir algo.
+   */
+  getByNome(query: Query<"/processos/nome", "get">, options?: CallOptions) {
+    return this.http.send("get", "/processos/nome", { query }, options);
+  }
+
+  /**
+   * Resultados de um job de processos
+   *
+   * Lista o que o job de tempo real (`realtime=true`) já achou. É o `results_url` que a consulta devolve. Os arquivos OpenAPI da Sherlocker não trazem este endpoint e a documentação não mostra a resposta, então ela vem sem tipo.
+   */
+  getJobResults(
+    jobId: PathParams<"/processos/jobs/{jobId}/results", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/processos/jobs/{jobId}/results",
+      { path: { jobId } },
+      options,
+    );
+  }
 }
