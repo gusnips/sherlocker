@@ -99,7 +99,7 @@ const job = await sherlocker.dominios.getJob(answer.job.id);
 console.log(job.status); // "waiting", "processing", "completed" or "failed"
 ```
 
-A job id that does not exist answers 200 with `status: "failed"`, not 404, so check `status`. `progress` stays 0 even when the job is done, so do not use it for a progress bar. Thirteen modules have a `getJob` (`pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`), but only `dominios` was seen starting one. `dominios` can end as `failed` with an error like `crt.sh indisponível` when an outside source is down.
+A job id that does not exist answers 200 with `status: "failed"`, not 404, so check `status`. `progress` stays 0 even when the job is done, so do not use it for a progress bar. Thirteen modules have a job method, `getJob` (`getNfeJob` on `nfe`) (`pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`), but only `dominios` was seen starting one. `dominios` can end as `failed` with an error like `crt.sh indisponível` when an outside source is down.
 
 An **idempotency key** is any unique string, like a UUID. If you send the same key and the same content again within 24 hours, Sherlocker gives the first answer back and does not charge a second time. Where Sherlocker requires one (`analyses.create`, `dossies.create`, `monitors.create` and a few more), the method asks for it in the last argument, and your editor will not let you skip it:
 
@@ -224,7 +224,7 @@ The types come from Sherlocker's OpenAPI files. Those files are behind Sherlocke
 - Fields that real answers have and the files lack (83 across 23 endpoints, such as `pessoas.getByCpf` `publicamente_exposta` and `cargos_publicos`, or the `job` of `dominios.getByCnpj`). Each one says in its description that it was seen in real answers.
 - Three routes that only Sherlocker's docs name: `processos.getByNome` (the docs show the request, not the answer, so it is typed like `processos.getByCpf`), `processos.getJobResults` and `rural.getJob` (no answer type, you get a plain object).
 
-- `getJob` for the 13 modules in "Jobs that take time", and the `Job` type they return. Only Sherlocker's MCP server lists these routes.
+- `getJob` (`getNfeJob` on `nfe`) for the 13 modules in "Jobs that take time", and the `Job` type they return. Only Sherlocker's MCP server lists these routes.
 
 Sherlocker publishes no response shape for these, so their types come from real answers, one per endpoint. They were checked with a Petrobras CNPJ and one CPF, and `bun run observe` compares them again. A field that was `null` or empty in that one answer may carry more in another, so check before you rely on it. The `regularidade` answer was checked with one CNPJ and one CPF. `nome` changes nothing for a CNPJ: `sancao-internacional` and `debarment-multilateral` stay `status: "error"` for a company.
 
