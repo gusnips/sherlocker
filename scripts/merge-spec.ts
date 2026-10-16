@@ -7,7 +7,9 @@
 //
 // scripts/overlay.json adds what those files lack but Sherlocker's live API and MCP server have.
 // An endpoint the files do not list is added whole. For one they list, only its missing
-// parameters are added.
+// parameters are added. Its "patches" add the fields a real answer has and the files lack, or mark
+// a field nullable (`bun run observe --patches` writes them). A patch never changes a field the
+// files already describe.
 import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
@@ -239,6 +241,18 @@ function parametersOf(operation: JsonObject): Json[] {
   return Array.isArray(parameters) ? parameters : [];
 }
 
+// Follows a JSON pointer such as #/components/schemas/Socio or #/paths/~1empresas~1cnpj/get.
+function at(root: JsonObject, pointer: string): JsonObject {
+  let current: Json | undefined = root;
+  for (const part of pointer.replace(/^#\//, "").split("/")) {
+    const key = part.replaceAll("~1", "/").replaceAll("~0", "~");
+    current = isObject(current) ? current[key] : undefined;
+  }
+  if (!isObject(current))
+    throw new Error(`${OVERLAY_FILE}: no schema at ${pointer}.`);
+  return current;
+}
+
 let overlayOperations = 0;
 for (const [path, item] of Object.entries(overlay.paths)) {
   if (!isObject(item)) continue;
@@ -291,6 +305,39 @@ const spec: JsonObject = {
   paths,
   components,
 };
+const OBSERVED =
+  "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo.";
+const patches = Array.isArray(overlay.patches) ? overlay.patches : [];
+for (const patch of patches) {
+  if (!isObject(patch) || typeof patch.at !== "string") {
+    throw new Error(`${OVERLAY_FILE}: a patch has no "at".`);
+  }
+  const schema = at(spec, patch.at);
+  if (patch.nullable === true) {
+    // OpenAPI 3.0 ignores anything next to a $ref, so a nullable $ref is wrapped.
+    if (typeof schema.$ref === "string") {
+      schema.allOf = [{ $ref: schema.$ref }];
+      delete schema.$ref;
+    }
+    schema.nullable = true;
+  }
+  if (!isObject(patch.properties)) continue;
+  const have = isObject(schema.properties) ? schema.properties : {};
+  for (const key of Object.keys(patch.properties)) {
+    if (key in have) {
+      throw new Error(
+        `${OVERLAY_FILE}: ${patch.at} already has the field ${key}. Remove it from the patch.`,
+      );
+    }
+  }
+  const added = Object.entries(patch.properties).map(([key, field]) => [
+    key,
+    isObject(field) && !("description" in field)
+      ? { ...field, description: OBSERVED }
+      : field,
+  ]);
+  schema.properties = { ...have, ...Object.fromEntries(added) };
+}
 writeFileSync("openapi.json", `${JSON.stringify(spec, null, 2)}\n`);
 console.log(
   `${operations.length} operations from ${sources.length} files and ${overlayOperations} from ${OVERLAY_FILE}, ${reached.size} components.`,

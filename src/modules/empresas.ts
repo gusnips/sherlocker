@@ -176,4 +176,21 @@ export class EmpresasModule {
   getCodigos(query?: Query<"/empresas/codigos", "get">, options?: CallOptions) {
     return this.http.send("get", "/empresas/codigos", { query }, options);
   }
+
+  /**
+   * Status de um job de empresas
+   *
+   * Status de uma consulta assíncrona de empresas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getJob(
+    jobId: PathParams<"/empresas/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/empresas/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }

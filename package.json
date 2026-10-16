@@ -1,6 +1,6 @@
 {
   "name": "sherlocker",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "packageManager": "bun@1.4.2",
   "description": "Unofficial TypeScript SDK for the Sherlocker API: look up Brazilian people and companies by CPF or CNPJ (registry, assets, lawsuits, debts, contacts)",
   "main": "dist/index.js",
@@ -31,7 +31,8 @@
     "lint": "eslint src scripts",
     "format": "prettier --write .",
     "test": "bun test",
-    "prepublishOnly": "bun run lint && bun run typecheck && bun run build"
+    "prepublishOnly": "bun run lint && bun run typecheck && bun run build",
+    "observe": "bun scripts/observe.ts"
   },
   "keywords": [
     "sherlocker",
