@@ -1,0 +1,299 @@
+{
+  "paths": {
+    "/regularidade/cpf/{cpf}": {
+      "get": {
+        "operationId": "getRegularidadeByCpf",
+        "summary": "Regularidade de um CPF",
+        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF (11 dígitos)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "description": "Nome da pessoa. Melhora a precisão da busca por CPF.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "modulos",
+            "in": "query",
+            "required": false,
+            "description": "Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos.",
+            "schema": { "type": "string", "example": "ibama,protestos" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Irregularidades achadas em cada módulo",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Regularidade" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regularidade/cnpj/{cnpj}": {
+      "get": {
+        "operationId": "getRegularidadeByCnpj",
+        "summary": "Regularidade de um CNPJ",
+        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.",
+        "parameters": [
+          {
+            "name": "cnpj",
+            "in": "path",
+            "required": true,
+            "description": "CNPJ (14 dígitos)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "description": "Razão social da empresa.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "modulos",
+            "in": "query",
+            "required": false,
+            "description": "Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos.",
+            "schema": { "type": "string", "example": "ibama,protestos" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Irregularidades achadas em cada módulo",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Regularidade" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/perfis": {
+      "post": {
+        "operationId": "createPerfil",
+        "summary": "Executa um perfil",
+        "description": "Inicia a execução de um perfil sobre um CPF e devolve o `job_id`. Acompanhe o job em `perfis.getJobStatus`. O `perfil_id` é do seu contrato: a Sherlocker entrega o seu. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. Vem da página \"Perfil: Candidato RH\" da documentação. A mesma `idempotencyKey` em até 24h devolve o mesmo job, sem cobrar de novo.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreatePerfil" }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Job criado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PerfilJobCreated" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pessoas/cpf/{cpf}/empregos": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/ListLimit" },
+          { "$ref": "#/components/parameters/ListOffset" }
+        ]
+      }
+    },
+    "/pessoas/cpf/{cpf}/enderecos": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/ListLimit" },
+          { "$ref": "#/components/parameters/ListOffset" }
+        ]
+      }
+    },
+    "/pessoas/email/{email}": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/ListLimit" },
+          { "$ref": "#/components/parameters/ListOffset" }
+        ]
+      }
+    },
+    "/telefones/cnpj/{cnpj}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "whatsapp",
+            "in": "query",
+            "required": false,
+            "description": "Se \"true\", inclui a verificação de WhatsApp.",
+            "schema": { "type": "string", "example": "true" }
+          }
+        ]
+      }
+    },
+    "/processos/cpf/{cpf}": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/ProcessosClasses" },
+          { "$ref": "#/components/parameters/ProcessosAssuntos" },
+          { "$ref": "#/components/parameters/ProcessosAreas" },
+          { "$ref": "#/components/parameters/ProcessosPolos" },
+          { "$ref": "#/components/parameters/ProcessosIncludeMovements" },
+          { "$ref": "#/components/parameters/ProcessosForce" }
+        ]
+      }
+    },
+    "/processos/cnpj/{cnpj}": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/ProcessosClasses" },
+          { "$ref": "#/components/parameters/ProcessosAssuntos" },
+          { "$ref": "#/components/parameters/ProcessosAreas" },
+          { "$ref": "#/components/parameters/ProcessosPolos" },
+          { "$ref": "#/components/parameters/ProcessosIncludeMovements" },
+          { "$ref": "#/components/parameters/ProcessosForce" }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ListLimit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "description": "Máximo de registros retornados",
+        "schema": { "type": "integer", "example": 50 }
+      },
+      "ListOffset": {
+        "name": "offset",
+        "in": "query",
+        "required": false,
+        "description": "Número de registros a pular",
+        "schema": { "type": "integer", "example": 0 }
+      },
+      "ProcessosClasses": {
+        "name": "classes",
+        "in": "query",
+        "required": false,
+        "description": "Filtro por classe processual.",
+        "schema": { "type": "string" }
+      },
+      "ProcessosAssuntos": {
+        "name": "assuntos",
+        "in": "query",
+        "required": false,
+        "description": "Filtro por assunto.",
+        "schema": { "type": "string" }
+      },
+      "ProcessosAreas": {
+        "name": "areas",
+        "in": "query",
+        "required": false,
+        "description": "Filtro por área.",
+        "schema": { "type": "string" }
+      },
+      "ProcessosPolos": {
+        "name": "polos",
+        "in": "query",
+        "required": false,
+        "description": "Filtro por polo.",
+        "schema": { "type": "string" }
+      },
+      "ProcessosIncludeMovements": {
+        "name": "include_movements",
+        "in": "query",
+        "required": false,
+        "description": "Se \"false\", não traz as movimentações (padrão: traz).",
+        "schema": { "type": "string", "example": "false" }
+      },
+      "ProcessosForce": {
+        "name": "force",
+        "in": "query",
+        "required": false,
+        "description": "Se \"true\" junto com `realtime`, busca de novo mesmo os processos já vinculados (atualiza advogados e movimentações).",
+        "schema": { "type": "string", "example": "true" }
+      }
+    },
+    "schemas": {
+      "Regularidade": {
+        "type": "object",
+        "properties": {
+          "documento": { "type": "string" },
+          "tipo_documento": { "type": "string" },
+          "modulos": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/RegularidadeModulo" }
+          }
+        }
+      },
+      "RegularidadeModulo": {
+        "type": "object",
+        "properties": {
+          "modulo": { "type": "string" },
+          "status": { "type": "string" },
+          "irregularidades": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/RegularidadeItem" }
+          }
+        }
+      },
+      "RegularidadeItem": {
+        "type": "object",
+        "properties": {
+          "tipo": { "type": "string" },
+          "descricao": { "type": "string" },
+          "orgao": { "type": "string", "nullable": true },
+          "data": { "type": "string", "nullable": true },
+          "valor": { "type": "number", "nullable": true },
+          "detalhes": { "type": "object", "nullable": true }
+        }
+      },
+      "CreatePerfil": {
+        "type": "object",
+        "required": ["documento", "perfil_id"],
+        "properties": {
+          "documento": {
+            "type": "string",
+            "description": "CPF, com ou sem máscara."
+          },
+          "perfil_id": {
+            "type": "string",
+            "description": "ID do perfil, do seu contrato."
+          },
+          "tipos_vinculo": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["documento", "nome"] },
+            "description": "Tipos de vínculo aceitos nos processos. Padrão: [\"documento\"]. Com \"nome\", entram também processos ligados só pelo nome, e pode haver homônimos."
+          }
+        }
+      },
+      "PerfilJobCreated": {
+        "type": "object",
+        "properties": {
+          "job_id": { "type": "string" },
+          "status": { "type": "string", "example": "processando" },
+          "perfil": {
+            "type": "object",
+            "properties": {
+              "perfil_id": { "type": "string", "nullable": true },
+              "label": { "type": "string", "nullable": true }
+            }
+          },
+          "criado_em": { "type": "string", "description": "ISO 8601" }
+        }
+      }
+    }
+  }
+}
