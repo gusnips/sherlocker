@@ -49,9 +49,28 @@ const processes = await sherlocker.processos.getByCpf("12345678901", {
 });
 ```
 
-Groups, from the OpenAPI files at commit `e41836d` of Sherlocker's docs (100 methods): `empresas` (10), `monitors` (9), `processos` (6), `dossies` (6), `pessoas` (5), `lente` (5), `certidoes` (4), `perfil` (4), `rastro` (4), `veiculos` (3), `escrituras` (3), `listasRestritivas` (3), `operations` (3), `registro` (3), and two each for `aeronaves`, `beneficios`, `dividas`, `doacoesPoliticas`, `dominios`, `imoveis`, `patentes`, `rural`, `licitacoes`, `analyses`, `nfe`, `telefones`, `emails` and `enderecos`. `documentos`, `trabalhista`, `perfis` and `renda` have one each.
+Groups (103 methods: 100 from the OpenAPI files at commit `e41836d` of Sherlocker's docs, and 3 added by hand, see [What is not in it](#what-is-not-in-it)): `empresas` (10), `monitors` (9), `processos` (6), `dossies` (6), `pessoas` (5), `lente` (5), `certidoes` (4), `perfil` (4), `rastro` (4), `veiculos` (3), `escrituras` (3), `listasRestritivas` (3), `operations` (3), `registro` (3), and two each for `aeronaves`, `beneficios`, `dividas`, `doacoesPoliticas`, `dominios`, `imoveis`, `patentes`, `rural`, `licitacoes`, `analyses`, `nfe`, `telefones`, `emails`, `enderecos`, `perfis` and `regularidade`. `documentos`, `trabalhista` and `renda` have one each.
 
 Hover a method in your editor to read what it does, in Sherlocker's own words (Portuguese). Your editor lists the parameters and marks the required ones.
+
+## Search without a CPF
+
+Most endpoints start from a CPF or CNPJ. These start from something else:
+
+| You have                                                        | Method                                                                                        |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| A phone number                                                  | `pessoas.findByTelefone(telefone)`, `empresas.getByTelefone(telefone)`                        |
+| An email                                                        | `pessoas.getByEmail(email)`, `empresas.getByEmail(email)`                                     |
+| A phone, email or CPF, to get digital, shopping and bank traces | `registro.getPorTelefone(telefone)`, `registro.getPorEmail(email)`, `registro.getPorCpf(cpf)` |
+| A license plate                                                 | `veiculos.getByPlaca(placa)`                                                                  |
+| Words to find in public documents, like official gazettes       | `documentos.search({ query: "..." })`                                                         |
+| A lawsuit number                                                | `processos.getByNumero(numero)`                                                               |
+| An invoice access key (44 digits)                               | `nfe.getNfeByChave(chave)`                                                                    |
+| A CPF, to list the companies where the person is a partner      | `empresas.getSociedadesByCpf(cpf)`                                                            |
+| A CPF or CNPJ, to check the restrictive lists                   | `listasRestritivas.getByDocumento(documento)`                                                 |
+| An email, phone number, username or crypto wallet               | `rastro.createSearch(body, { idempotencyKey })`, then `rastro.getSearch(id)`                  |
+
+The last one is a job: Sherlocker answers 202 and you read the result later with `rastro.getSearch`.
 
 ## What you get back
 
@@ -182,7 +201,15 @@ The client has no runtime dependencies.
 
 ## What is not in it
 
-The SDK covers what Sherlocker's OpenAPI files describe. The Swagger page at `https://221b-api.sherlocker.com.br/docs` lists more filters for `processos` (`classes`, `assuntos`, `areas`, `polos`, `include_movements` and `force`) than those files do, so they are not in the types.
+The types come from Sherlocker's OpenAPI files. Those files are behind Sherlocker's live API, so `scripts/overlay.json` adds what the live API, its docs and its MCP server have and the files lack:
+
+- `regularidade.getByCpf` and `regularidade.getByCnpj` (IBAMA, sanctions, Banco Central, protests).
+- `perfis.create`, which starts the job that `perfis.getJobStatus` reads.
+- The `classes`, `assuntos`, `areas`, `polos`, `include_movements` and `force` filters of `processos`, `limit` and `offset` on three `pessoas` endpoints, and `whatsapp` on `telefones.getByCnpj`.
+
+Sherlocker publishes no response shape for these, so their types are best effort. The `regularidade` answer is typed from how a production app reads it, and no call was checked against a live response.
+
+Some routes exist (they answer 401 without a token) but are not here, because Sherlocker publishes no response shape for them: `GET /processos/nome`, `GET /processos/jobs/{jobId}/results`, and `GET /{module}/jobs/{jobId}` for `pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `rural`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`.
 
 ## Keeping it current
 
@@ -194,7 +221,7 @@ bun run spec refs/sherlocker-docs/openapi
 bun run generate
 ```
 
-`bun run spec` joins the files into `openapi.json`. Some modules list the same endpoint, so it keeps the one from the module named after the endpoint. `bun run generate` stops with an error if two endpoints end up with one name. Do not edit `src/schema.d.ts`, `src/client.ts` or `src/modules/`. The script rewrites them.
+`bun run spec` joins the files and `scripts/overlay.json` into `openapi.json`. Some modules list the same endpoint, so it keeps the one from the module named after the endpoint. The overlay adds a whole endpoint only when the files lack it, and only the missing parameters when they have it. `bun run generate` stops with an error if two endpoints end up with one name. Do not edit `src/schema.d.ts`, `src/client.ts` or `src/modules/`. The script rewrites them.
 
 ## License
 
