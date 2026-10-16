@@ -207,12 +207,12 @@ The client has no runtime dependencies.
 
 The types come from Sherlocker's OpenAPI files. Those files are behind Sherlocker's live API, so `scripts/overlay.json` adds what the live API, its docs and its MCP server have and the files lack:
 
-- `regularidade.getByCpf` and `regularidade.getByCnpj` (IBAMA, sanctions, Banco Central, protests).
+- `regularidade.getByCpf` and `regularidade.getByCnpj` (IBAMA, sanctions, Banco Central, PEP). The answer is an object with one key per module, like `ibama-autos`, each with `found`, `status` and a `data` list. The modules differ by document, so index it by name.
 - `perfis.create`, which starts the job that `perfis.getJobStatus` reads.
 - The `classes`, `assuntos`, `areas`, `polos`, `include_movements` and `force` filters of `processos`, `limit` and `offset` on three `pessoas` endpoints, and `whatsapp` on `telefones.getByCnpj`.
 - Three routes that only Sherlocker's docs name: `processos.getByNome` (the docs show the request, not the answer, so it is typed like `processos.getByCpf`), `processos.getJobResults` and `rural.getJob` (no answer type, you get a plain object).
 
-Sherlocker publishes no response shape for these, so their types are best effort. The `regularidade` answer is typed from how a production app reads it, and no call was checked against a live response.
+Sherlocker publishes no response shape for these, so their types are best effort. The `regularidade` shape was checked with one real answer for a CNPJ and one for a CPF. The others come from Sherlocker's docs and were not checked against a live answer.
 
 Some routes exist (they answer 401 without a token) but are not here, because only Sherlocker's MCP server lists them and nothing gives their answer: `GET /{module}/jobs/{jobId}` for `pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`.
 

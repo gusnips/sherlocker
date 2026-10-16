@@ -4,7 +4,7 @@
       "get": {
         "operationId": "getRegularidadeByCpf",
         "summary": "Regularidade de um CPF",
-        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.",
+        "description": "Checks de regularidade e compliance, um por módulo: IBAMA, sanções nacionais e internacionais, Banco Central, PEP e outros. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O formato foi conferido com respostas reais de um CNPJ e de um CPF, e o conjunto de módulos pode variar por documento.",
         "parameters": [
           {
             "name": "cpf",
@@ -19,7 +19,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Nome da pessoa. Melhora a precisão da busca por CPF.",
+            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
             "schema": {
               "type": "string"
             }
@@ -53,7 +53,7 @@
       "get": {
         "operationId": "getRegularidadeByCnpj",
         "summary": "Regularidade de um CNPJ",
-        "description": "Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.",
+        "description": "Checks de regularidade e compliance, um por módulo: IBAMA, sanções nacionais e internacionais, trabalho escravo e outros. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O formato foi conferido com respostas reais de um CNPJ e de um CPF, e o conjunto de módulos pode variar por documento.",
         "parameters": [
           {
             "name": "cnpj",
@@ -68,7 +68,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Razão social da empresa.",
+            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
             "schema": {
               "type": "string"
             }
@@ -417,67 +417,6 @@
       }
     },
     "schemas": {
-      "Regularidade": {
-        "type": "object",
-        "properties": {
-          "documento": {
-            "type": "string"
-          },
-          "tipo_documento": {
-            "type": "string"
-          },
-          "modulos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RegularidadeModulo"
-            }
-          }
-        }
-      },
-      "RegularidadeModulo": {
-        "type": "object",
-        "properties": {
-          "modulo": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "irregularidades": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RegularidadeItem"
-            }
-          }
-        }
-      },
-      "RegularidadeItem": {
-        "type": "object",
-        "properties": {
-          "tipo": {
-            "type": "string"
-          },
-          "descricao": {
-            "type": "string"
-          },
-          "orgao": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "type": "string",
-            "nullable": true
-          },
-          "valor": {
-            "type": "number",
-            "nullable": true
-          },
-          "detalhes": {
-            "type": "object",
-            "nullable": true
-          }
-        }
-      },
       "CreatePerfil": {
         "type": "object",
         "required": ["documento", "perfil_id"],
@@ -526,6 +465,39 @@
           "criado_em": {
             "type": "string",
             "description": "ISO 8601"
+          }
+        }
+      },
+      "Regularidade": {
+        "type": "object",
+        "description": "Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio nas respostas conferidas. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento.",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/RegularidadeModulo"
+        }
+      },
+      "RegularidadeModulo": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "boolean",
+            "description": "Se a fonte tem registro do documento."
+          },
+          "status": {
+            "type": "string",
+            "description": "Valores vistos: `found`, `not_found` e `error`.",
+            "example": "not_found"
+          },
+          "error": {
+            "type": "string",
+            "description": "Presente quando `status` é `error`, por exemplo quando a fonte exige o nome e o `nome` não foi enviado."
+          },
+          "data": {
+            "type": "array",
+            "description": "Os registros achados. Cada módulo tem os seus campos.",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
           }
         }
       }
