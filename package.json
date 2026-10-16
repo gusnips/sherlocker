@@ -1,6 +1,6 @@
 {
   "name": "sherlocker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packageManager": "bun@1.4.2",
   "description": "Unofficial TypeScript SDK for the Sherlocker API: look up Brazilian people and companies by CPF or CNPJ (registry, assets, lawsuits, debts, contacts)",
   "main": "dist/index.js",
