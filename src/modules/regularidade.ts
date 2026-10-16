@@ -12,7 +12,7 @@ export class RegularidadeModule {
   /**
    * Regularidade de um CPF
    *
-   * Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+   * Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
    */
   getByCpf(
     cpf: PathParams<"/regularidade/cpf/{cpf}", "get">["cpf"],
@@ -30,7 +30,7 @@ export class RegularidadeModule {
   /**
    * Regularidade de um CNPJ
    *
-   * Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+   * Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
    */
   getByCnpj(
     cnpj: PathParams<"/regularidade/cnpj/{cnpj}", "get">["cnpj"],

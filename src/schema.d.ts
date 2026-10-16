@@ -1926,7 +1926,7 @@ export interface paths {
     };
     /**
      * Regularidade de um CPF
-     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
      */
     get: operations["getRegularidadeByCpf"];
     put?: never;
@@ -1946,7 +1946,7 @@ export interface paths {
     };
     /**
      * Regularidade de um CNPJ
-     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
      */
     get: operations["getRegularidadeByCnpj"];
     put?: never;
@@ -1971,6 +1971,66 @@ export interface paths {
      * @description Inicia a execução de um perfil sobre um CPF e devolve o `job_id`. Acompanhe o job em `perfis.getJobStatus`. O `perfil_id` é do seu contrato: a Sherlocker entrega o seu. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. Vem da página "Perfil: Candidato RH" da documentação. A mesma `idempotencyKey` em até 24h devolve o mesmo job, sem cobrar de novo.
      */
     post: operations["createPerfil"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/processos/nome": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Processos por nome
+     * @description Busca direta por nome, sem CPF nem CNPJ. Com `documento`, a Sherlocker descarta as partes que já têm outro documento conhecido. Os arquivos OpenAPI da Sherlocker não trazem este endpoint, só a página "Vínculo por documento x nome" da documentação, que também não mostra a resposta. O SDK assume a mesma resposta de processos por CPF. Um nome pode ter homônimos: confirme com o documento antes de decidir algo.
+     */
+    get: operations["getProcessosByNome"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/processos/jobs/{jobId}/results": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Resultados de um job de processos
+     * @description Lista o que o job de tempo real (`realtime=true`) já achou. É o `results_url` que a consulta devolve. Os arquivos OpenAPI da Sherlocker não trazem este endpoint e a documentação não mostra a resposta, então ela vem sem tipo.
+     */
+    get: operations["getProcessosJobResults"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/rural/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de rural
+     * @description Status de uma consulta rural assíncrona. A página "Propriedade Rural" da documentação lista a rota, mas nenhum arquivo OpenAPI da Sherlocker a descreve e a resposta vem sem tipo.
+     */
+    get: operations["getRuralJob"];
+    put?: never;
+    post?: never;
     delete?: never;
     options?: never;
     head?: never;
@@ -10892,6 +10952,81 @@ export interface operations {
         };
         content: {
           "application/json": components["schemas"]["PerfilJobCreated"];
+        };
+      };
+    };
+  };
+  getProcessosByNome: {
+    parameters: {
+      query: {
+        /** @description Nome da pessoa ou da empresa. */
+        nome: string;
+        /** @description CPF ou CNPJ já conhecido, para tirar homônimos. */
+        documento?: string;
+        /** @description Fonte da busca. A documentação só mostra `ambas`. */
+        fonte?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Processos achados pelo nome */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProcessosResponse"];
+        };
+      };
+    };
+  };
+  getProcessosJobResults: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Resultados do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
+        };
+      };
+    };
+  };
+  getRuralJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };

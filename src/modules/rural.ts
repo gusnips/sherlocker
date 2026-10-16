@@ -37,4 +37,21 @@ export class RuralModule {
       options,
     );
   }
+
+  /**
+   * Status de um job de rural
+   *
+   * Status de uma consulta rural assíncrona. A página "Propriedade Rural" da documentação lista a rota, mas nenhum arquivo OpenAPI da Sherlocker a descreve e a resposta vem sem tipo.
+   */
+  getJob(
+    jobId: PathParams<"/rural/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/rural/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }
