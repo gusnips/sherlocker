@@ -37,4 +37,21 @@ export class DividasModule {
       options,
     );
   }
+
+  /**
+   * Status de um job de dívidas
+   *
+   * Status de uma consulta assíncrona de dívidas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getJob(
+    jobId: PathParams<"/dividas/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/dividas/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }

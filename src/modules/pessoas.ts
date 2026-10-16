@@ -98,4 +98,21 @@ export class PessoasModule {
       options,
     );
   }
+
+  /**
+   * Status de um job de pessoas
+   *
+   * Status de uma consulta assíncrona de pessoas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getJob(
+    jobId: PathParams<"/pessoas/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/pessoas/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }

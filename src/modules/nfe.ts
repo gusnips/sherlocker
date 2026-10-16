@@ -34,4 +34,21 @@ export class NfeModule {
   getNfeLote(body: Body<"/nfe/lote", "post">, options?: CallOptions) {
     return this.http.send("post", "/nfe/lote", { json: body }, options);
   }
+
+  /**
+   * Status de um job de nf-e
+   *
+   * Status de uma consulta assíncrona de nf-e. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getNfeJob(
+    jobId: PathParams<"/nfe/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/nfe/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }

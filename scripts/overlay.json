@@ -19,7 +19,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
+            "description": "Nome da pessoa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. Com o nome da pessoa, eles respondem (`found` ou `not_found`).",
             "schema": {
               "type": "string"
             }
@@ -68,7 +68,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
+            "description": "Não muda a resposta para um CNPJ. `sancao-internacional` e `debarment-multilateral` voltam com `status: error` (\"Nome é necessário...\") mesmo com `nome`, `name` ou `razao_social`, então esses dois módulos não dão resposta para uma empresa.",
             "schema": {
               "type": "string"
             }
@@ -327,8 +327,384 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aeronaves/jobs/{jobId}": {
+      "get": {
+        "operationId": "getAeronavesJob",
+        "summary": "Status de um job de aeronaves",
+        "description": "Status de uma consulta assíncrona de aeronaves. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficios/jobs/{jobId}": {
+      "get": {
+        "operationId": "getBeneficiosJob",
+        "summary": "Status de um job de benefícios",
+        "description": "Status de uma consulta assíncrona de benefícios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dividas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDividasJob",
+        "summary": "Status de um job de dívidas",
+        "description": "Status de uma consulta assíncrona de dívidas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/documentos/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDocumentosJob",
+        "summary": "Status de um job de documentos",
+        "description": "Status de uma consulta assíncrona de documentos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dominios/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDominiosJob",
+        "summary": "Status de um job de domínios",
+        "description": "Status de uma consulta assíncrona de domínios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empresas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getEmpresasJob",
+        "summary": "Status de um job de empresas",
+        "description": "Status de uma consulta assíncrona de empresas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/licitacoes/jobs/{jobId}": {
+      "get": {
+        "operationId": "getLicitacoesJob",
+        "summary": "Status de um job de licitações",
+        "description": "Status de uma consulta assíncrona de licitações. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nfe/jobs/{jobId}": {
+      "get": {
+        "operationId": "getNfeJob",
+        "summary": "Status de um job de nf-e",
+        "description": "Status de uma consulta assíncrona de nf-e. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patentes/jobs/{jobId}": {
+      "get": {
+        "operationId": "getPatentesJob",
+        "summary": "Status de um job de patentes",
+        "description": "Status de uma consulta assíncrona de patentes. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pessoas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getPessoasJob",
+        "summary": "Status de um job de pessoas",
+        "description": "Status de uma consulta assíncrona de pessoas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regularidade/jobs/{jobId}": {
+      "get": {
+        "operationId": "getRegularidadeJob",
+        "summary": "Status de um job de regularidade",
+        "description": "Status de uma consulta assíncrona de regularidade. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trabalhista/jobs/{jobId}": {
+      "get": {
+        "operationId": "getTrabalhistaJob",
+        "summary": "Status de um job de trabalhista",
+        "description": "Status de uma consulta assíncrona de trabalhista. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/veiculos/jobs/{jobId}": {
+      "get": {
+        "operationId": "getVeiculosJob",
+        "summary": "Status de um job de veículos",
+        "description": "Status de uma consulta assíncrona de veículos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -470,7 +846,7 @@
       },
       "Regularidade": {
         "type": "object",
-        "description": "Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio nas respostas conferidas. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento.",
+        "description": "Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio em nenhuma resposta: pedir `modulos=protestos` para um CNPJ devolve `{}`. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento.",
         "additionalProperties": {
           "$ref": "#/components/schemas/RegularidadeModulo"
         }
@@ -500,7 +876,878 @@
             }
           }
         }
+      },
+      "Job": {
+        "type": "object",
+        "description": "Um job assíncrono da Sherlocker. A consulta que o abre devolve o id (`jobId`, ou `job.id`) e você consulta a rota do job até `status` ser `completed` ou `failed`. Um id que não existe responde 200 com `status: failed` e `error: Job not found`, não 404. Só `dominios.getByCnpj` e `escrituras` abriram jobs nas chamadas conferidas. Os outros módulos têm a rota, mas não vimos qual consulta os abre.",
+        "properties": {
+          "jobId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "Valores vistos nos jobs e nas consultas que os abrem: `waiting`, `processing`, `completed` e `failed`.",
+            "example": "completed"
+          },
+          "createdAt": {
+            "type": "number",
+            "description": "Início do job, em milissegundos desde 1970."
+          },
+          "finishedAt": {
+            "type": "number",
+            "description": "Fim do job, em milissegundos desde 1970. Vem quando o job terminou, com `completed` ou `failed`."
+          },
+          "progress": {
+            "type": "number",
+            "description": "Veio sempre 0 nas respostas conferidas, até com o job concluído. Não use para mostrar andamento."
+          },
+          "error": {
+            "type": "string",
+            "description": "Por que o job falhou, por exemplo `crt.sh indisponível` quando a fonte externa está fora do ar."
+          },
+          "result": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "A resposta da consulta, quando `completed`. Cada módulo tem a sua."
+          }
+        }
       }
     }
-  }
+  },
+  "patches": [
+    {
+      "at": "#/components/schemas/DominiosResponse",
+      "properties": {
+        "confirmados": {
+          "type": "array",
+          "items": {}
+        },
+        "possiveis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dominio": {
+                "type": "string"
+              },
+              "tld": {
+                "type": "string"
+              },
+              "motivo": {
+                "type": "string"
+              },
+              "fonte": {
+                "type": "string"
+              },
+              "confianca": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cobertura": {
+          "type": "object",
+          "properties": {
+            "br_confirmados": {
+              "type": "number"
+            },
+            "br_total_registro_br": {
+              "nullable": true
+            }
+          }
+        },
+        "job": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "statusUrl": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/EmpresaResponse",
+      "properties": {
+        "empresa_matriz": {
+          "type": "array",
+          "items": {}
+        },
+        "inscricoes_estaduais": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uf": {
+                "type": "string"
+              },
+              "inscricao_estadual": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/EmpresasSocio",
+      "properties": {
+        "pais": {
+          "type": "string"
+        },
+        "origem": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1empresas~1cnpj~1{cnpj}~1socios/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "empresa_matriz": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1empresas~1cnpj~1{cnpj}~1funcionarios/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "total": {
+          "type": "number"
+        },
+        "ativos": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/Funcionario",
+      "properties": {
+        "vinculos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cargo": {
+                "nullable": true
+              },
+              "status": {
+                "type": "string"
+              },
+              "data_admissao": {
+                "type": "string"
+              },
+              "data_desligamento": {
+                "nullable": true,
+                "type": "string"
+              },
+              "remuneracao": {
+                "type": "object",
+                "properties": {
+                  "valor": {
+                    "nullable": true,
+                    "type": "number"
+                  },
+                  "estimativa_minima": {
+                    "nullable": true,
+                    "type": "number"
+                  },
+                  "estimativa_maxima": {
+                    "nullable": true,
+                    "type": "number"
+                  },
+                  "faixa": {
+                    "nullable": true,
+                    "type": "string"
+                  }
+                }
+              },
+              "vinculo": {
+                "type": "object",
+                "properties": {
+                  "nivel": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "setor": {
+                    "type": "object",
+                    "properties": {
+                      "tipo": {
+                        "type": "string"
+                      },
+                      "codigo": {
+                        "type": "string"
+                      },
+                      "descricao": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "fontes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1empresas~1cnpj~1{cnpj}~1trabalhista/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "beneficiarias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cnpj": {
+                "type": "string"
+              },
+              "razao_social": {
+                "type": "string"
+              },
+              "matriz_filial": {
+                "type": "string"
+              },
+              "uf": {
+                "type": "string"
+              },
+              "registro": {
+                "type": "string"
+              },
+              "municipio": {
+                "type": "string"
+              },
+              "data_cadastro": {
+                "type": "string"
+              },
+              "situacao": {
+                "type": "string"
+              },
+              "trab_ate_5sm": {
+                "type": "string"
+              },
+              "trab_acima_5sm": {
+                "type": "string"
+              },
+              "total_trabalhadores": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "facilitadoras": {
+          "type": "array",
+          "items": {}
+        },
+        "fornecedoras": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1empresas~1cnpj~1{cnpj}~1beneficios/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "renuncias_fiscais": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/ProcessosResponse",
+      "properties": {
+        "next_offset": {
+          "type": "number"
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "filtros": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "truncado": {
+          "type": "boolean"
+        },
+        "fontes": {
+          "type": "object",
+          "properties": {
+            "comunica": {
+              "type": "number"
+            },
+            "base": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/ProcessoDetalhado",
+      "properties": {
+        "categoria": {
+          "type": "string"
+        },
+        "categoria_label": {
+          "type": "string"
+        },
+        "situacao": {
+          "type": "string"
+        },
+        "ultima_atualizacao": {
+          "type": "string"
+        },
+        "data_ultima_comunicacao": {
+          "type": "string"
+        },
+        "origem": {
+          "type": "string"
+        },
+        "nome_buscado": {
+          "type": "string"
+        },
+        "similaridade_max": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/RuralProfile",
+      "properties": {
+        "seguros": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "items": {},
+            "nullable": true
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/RuralResumo",
+      "properties": {
+        "qtd_apolices_seguro": {
+          "type": "number"
+        },
+        "valor_total_indenizacoes": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1empresas~1codigos/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "naturezas": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "cnaes": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "qualificacoes": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "motivos": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "paises": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "situacoes": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "valor": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "portes": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number"
+            },
+            "dados": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "valor": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PatentesResponse",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/CargoPublico",
+      "properties": {
+        "fonte": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PerfilEndereco/properties/complemento",
+      "nullable": true
+    },
+    {
+      "at": "#/components/schemas/PerfilCadastralCnpjResponse",
+      "properties": {
+        "empresa_matriz": {
+          "type": "array",
+          "items": {}
+        },
+        "inscricoes_estaduais": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uf": {
+                "type": "string"
+              },
+              "inscricao_estadual": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PerfilPatrimonialResponse/properties/rural/properties/transportes",
+      "properties": {
+        "total": {
+          "type": "number"
+        },
+        "volume_total": {
+          "type": "number"
+        },
+        "valor_total": {
+          "type": "number"
+        },
+        "produtos": {
+          "type": "array",
+          "items": {}
+        },
+        "por_produto": {
+          "type": "array",
+          "items": {}
+        },
+        "por_ano": {
+          "type": "array",
+          "items": {}
+        },
+        "parceiros": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PerfilPatrimonialResponse/properties/rural",
+      "properties": {
+        "seguros": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "items": {},
+            "nullable": true
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PerfilPatrimonialResponse/properties/rural/properties/resumo",
+      "properties": {
+        "area_total_ha": {
+          "type": "number"
+        },
+        "qtd_imoveis_sncr": {
+          "type": "number"
+        },
+        "qtd_imoveis_cafir": {
+          "type": "number"
+        },
+        "qtd_infracoes": {
+          "type": "number"
+        },
+        "valor_total_multas": {
+          "type": "number"
+        },
+        "qtd_autorizacoes": {
+          "type": "number"
+        },
+        "qtd_transportes": {
+          "type": "number"
+        },
+        "qtd_apolices_seguro": {
+          "type": "number"
+        },
+        "valor_total_indenizacoes": {
+          "type": "number"
+        },
+        "estados": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1pessoas~1cpf~1{cpf}/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "publicamente_exposta": {
+          "type": "boolean"
+        },
+        "cargos_publicos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cargo": {
+                "type": "string"
+              },
+              "nivel": {
+                "nullable": true
+              },
+              "orgao": {
+                "type": "string"
+              },
+              "uf": {
+                "type": "string"
+              },
+              "mandatos": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "inicio": {
+                      "type": "string"
+                    },
+                    "fim": {
+                      "nullable": true
+                    },
+                    "carencia_ate": {
+                      "nullable": true
+                    }
+                  }
+                }
+              },
+              "fonte": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1pessoas~1cpf~1{cpf}~1enderecos/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "documento": {
+          "type": "string"
+        },
+        "tipo_documento": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1pessoas~1cpf~1{cpf}~1empregos/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "documento": {
+          "type": "string"
+        },
+        "tipo_documento": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1enderecos~1cpf~1{cpf}/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "documento": {
+          "type": "string"
+        },
+        "tipo_documento": {
+          "type": "string"
+        },
+        "enderecos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "logradouro": {
+                "type": "string"
+              },
+              "numero": {
+                "type": "string"
+              },
+              "complemento": {
+                "type": "string"
+              },
+              "bairro": {
+                "type": "string"
+              },
+              "cidade": {
+                "type": "string"
+              },
+              "uf": {
+                "type": "string"
+              },
+              "cep": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1enderecos~1cnpj~1{cnpj}/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "documento": {
+          "type": "string"
+        },
+        "tipo_documento": {
+          "type": "string"
+        },
+        "enderecos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "logradouro": {
+                "type": "string"
+              },
+              "numero": {
+                "type": "string"
+              },
+              "complemento": {
+                "nullable": true
+              },
+              "bairro": {
+                "type": "string"
+              },
+              "cidade": {
+                "type": "string"
+              },
+              "uf": {
+                "type": "string"
+              },
+              "cep": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/paths/~1processos~1categorias/get/responses/200/content/application~1json/schema",
+      "properties": {
+        "categorias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "total_classes": {
+                "type": "string"
+              },
+              "total_processos": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/Registro/properties/metadata",
+      "properties": {
+        "__typename": {
+          "type": "string"
+        },
+        "ispb": {
+          "type": "string"
+        },
+        "agencia": {
+          "type": "string"
+        },
+        "conta_mascarada": {
+          "type": "string"
+        },
+        "tipo_conta": {
+          "type": "string"
+        },
+        "via": {
+          "type": "string"
+        },
+        "criado_em": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "at": "#/components/schemas/PessoasEmprego/properties/contatos/properties/telefone",
+      "nullable": true
+    },
+    {
+      "at": "#/components/schemas/PessoasEmprego/properties/contatos/properties/email",
+      "nullable": true
+    },
+    {
+      "at": "#/components/schemas/JobStatus",
+      "properties": {
+        "progress": {
+          "type": "number",
+          "description": "Veio sempre 0 nas respostas conferidas, até com o job concluído. Não use para mostrar andamento."
+        }
+      }
+    }
+  ]
 }

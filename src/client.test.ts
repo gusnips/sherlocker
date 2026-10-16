@@ -162,6 +162,20 @@ describe("SherlockerClient", () => {
     expect(results.total).toBe(2);
   });
 
+  test("polls the job routes, and an unknown id comes back as a failed job, not an error", async () => {
+    const { sherlocker, requests } = clientFor(() =>
+      json({ jobId: "j9", status: "failed", error: "Job not found" }),
+    );
+
+    const job = await sherlocker.dominios.getJob("j9");
+    await sherlocker.pessoas.getJob("j9");
+
+    expect(new URL(requests[0].url).pathname).toBe("/api/v1/dominios/jobs/j9");
+    expect(new URL(requests[1].url).pathname).toBe("/api/v1/pessoas/jobs/j9");
+    expect(job.status).toBe("failed");
+    expect(job.error).toBe("Job not found");
+  });
+
   test("makes you pick an idempotency key where Sherlocker requires one", async () => {
     const { sherlocker, requests } = clientFor(() =>
       json({ id: "a1", status: "pending" }, 202),

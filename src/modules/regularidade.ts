@@ -44,4 +44,21 @@ export class RegularidadeModule {
       options,
     );
   }
+
+  /**
+   * Status de um job de regularidade
+   *
+   * Status de uma consulta assíncrona de regularidade. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getJob(
+    jobId: PathParams<"/regularidade/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/regularidade/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }

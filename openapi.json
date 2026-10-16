@@ -1606,6 +1606,11 @@
                       "items": {
                         "$ref": "#/components/schemas/EmpresasSocio"
                       }
+                    },
+                    "empresa_matriz": {
+                      "type": "array",
+                      "items": {},
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -1725,6 +1730,14 @@
                       "items": {
                         "$ref": "#/components/schemas/Funcionario"
                       }
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "ativos": {
+                      "type": "number",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -1978,7 +1991,61 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "beneficiarias": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cnpj": {
+                            "type": "string"
+                          },
+                          "razao_social": {
+                            "type": "string"
+                          },
+                          "matriz_filial": {
+                            "type": "string"
+                          },
+                          "uf": {
+                            "type": "string"
+                          },
+                          "registro": {
+                            "type": "string"
+                          },
+                          "municipio": {
+                            "type": "string"
+                          },
+                          "data_cadastro": {
+                            "type": "string"
+                          },
+                          "situacao": {
+                            "type": "string"
+                          },
+                          "trab_ate_5sm": {
+                            "type": "string"
+                          },
+                          "trab_acima_5sm": {
+                            "type": "string"
+                          },
+                          "total_trabalhadores": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "facilitadoras": {
+                      "type": "array",
+                      "items": {},
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "fornecedoras": {
+                      "type": "array",
+                      "items": {},
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    }
+                  }
                 },
                 "example": {
                   "beneficiarias": [
@@ -2045,7 +2112,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "renuncias_fiscais": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    }
+                  }
                 },
                 "example": {
                   "renuncias_fiscais": [
@@ -3293,6 +3372,161 @@
                           }
                         }
                       }
+                    },
+                    "naturezas": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "codigo": {
+                                "type": "string"
+                              },
+                              "descricao": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "cnaes": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "codigo": {
+                                "type": "string"
+                              },
+                              "descricao": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "qualificacoes": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "codigo": {
+                                "type": "string"
+                              },
+                              "descricao": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "motivos": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "codigo": {
+                                "type": "string"
+                              },
+                              "descricao": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "paises": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "codigo": {
+                                "type": "string"
+                              },
+                              "descricao": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "situacoes": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "valor": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "portes": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "dados": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "valor": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -6272,6 +6506,51 @@
                           "nullable": true
                         }
                       }
+                    },
+                    "publicamente_exposta": {
+                      "type": "boolean",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "cargos_publicos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cargo": {
+                            "type": "string"
+                          },
+                          "nivel": {
+                            "nullable": true
+                          },
+                          "orgao": {
+                            "type": "string"
+                          },
+                          "uf": {
+                            "type": "string"
+                          },
+                          "mandatos": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "inicio": {
+                                  "type": "string"
+                                },
+                                "fim": {
+                                  "nullable": true
+                                },
+                                "carencia_ate": {
+                                  "nullable": true
+                                }
+                              }
+                            }
+                          },
+                          "fonte": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -6358,6 +6637,14 @@
                       "items": {
                         "$ref": "#/components/schemas/PessoasEndereco"
                       }
+                    },
+                    "documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "tipo_documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -6439,6 +6726,14 @@
                       "items": {
                         "$ref": "#/components/schemas/PessoasEmprego"
                       }
+                    },
+                    "documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "tipo_documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
                     }
                   }
                 },
@@ -7744,7 +8039,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "tipo_documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "enderecos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "logradouro": {
+                            "type": "string"
+                          },
+                          "numero": {
+                            "type": "string"
+                          },
+                          "complemento": {
+                            "type": "string"
+                          },
+                          "bairro": {
+                            "type": "string"
+                          },
+                          "cidade": {
+                            "type": "string"
+                          },
+                          "uf": {
+                            "type": "string"
+                          },
+                          "cep": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    }
+                  }
                 },
                 "example": {
                   "documento": "123.456.789-01",
@@ -7813,7 +8148,47 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "tipo_documento": {
+                      "type": "string",
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    },
+                    "enderecos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "logradouro": {
+                            "type": "string"
+                          },
+                          "numero": {
+                            "type": "string"
+                          },
+                          "complemento": {
+                            "nullable": true
+                          },
+                          "bairro": {
+                            "type": "string"
+                          },
+                          "cidade": {
+                            "type": "string"
+                          },
+                          "uf": {
+                            "type": "string"
+                          },
+                          "cep": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    }
+                  }
                 },
                 "example": {
                   "documento": "12.345.678/0001-99",
@@ -9658,7 +10033,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "categorias": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "slug": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "total_classes": {
+                            "type": "string"
+                          },
+                          "total_processos": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                    }
+                  }
                 },
                 "example": {
                   "categorias": [
@@ -10342,7 +10740,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
+            "description": "Nome da pessoa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. Com o nome da pessoa, eles respondem (`found` ou `not_found`).",
             "schema": {
               "type": "string"
             }
@@ -10391,7 +10789,7 @@
             "name": "nome",
             "in": "query",
             "required": false,
-            "description": "Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`.",
+            "description": "Não muda a resposta para um CNPJ. `sancao-internacional` e `debarment-multilateral` voltam com `status: error` (\"Nome é necessário...\") mesmo com `nome`, `name` ou `razao_social`, então esses dois módulos não dão resposta para uma empresa.",
             "schema": {
               "type": "string"
             }
@@ -10550,8 +10948,384 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aeronaves/jobs/{jobId}": {
+      "get": {
+        "operationId": "getAeronavesJob",
+        "summary": "Status de um job de aeronaves",
+        "description": "Status de uma consulta assíncrona de aeronaves. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficios/jobs/{jobId}": {
+      "get": {
+        "operationId": "getBeneficiosJob",
+        "summary": "Status de um job de benefícios",
+        "description": "Status de uma consulta assíncrona de benefícios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dividas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDividasJob",
+        "summary": "Status de um job de dívidas",
+        "description": "Status de uma consulta assíncrona de dívidas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/documentos/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDocumentosJob",
+        "summary": "Status de um job de documentos",
+        "description": "Status de uma consulta assíncrona de documentos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dominios/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDominiosJob",
+        "summary": "Status de um job de domínios",
+        "description": "Status de uma consulta assíncrona de domínios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empresas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getEmpresasJob",
+        "summary": "Status de um job de empresas",
+        "description": "Status de uma consulta assíncrona de empresas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/licitacoes/jobs/{jobId}": {
+      "get": {
+        "operationId": "getLicitacoesJob",
+        "summary": "Status de um job de licitações",
+        "description": "Status de uma consulta assíncrona de licitações. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nfe/jobs/{jobId}": {
+      "get": {
+        "operationId": "getNfeJob",
+        "summary": "Status de um job de nf-e",
+        "description": "Status de uma consulta assíncrona de nf-e. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patentes/jobs/{jobId}": {
+      "get": {
+        "operationId": "getPatentesJob",
+        "summary": "Status de um job de patentes",
+        "description": "Status de uma consulta assíncrona de patentes. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pessoas/jobs/{jobId}": {
+      "get": {
+        "operationId": "getPessoasJob",
+        "summary": "Status de um job de pessoas",
+        "description": "Status de uma consulta assíncrona de pessoas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regularidade/jobs/{jobId}": {
+      "get": {
+        "operationId": "getRegularidadeJob",
+        "summary": "Status de um job de regularidade",
+        "description": "Status de uma consulta assíncrona de regularidade. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trabalhista/jobs/{jobId}": {
+      "get": {
+        "operationId": "getTrabalhistaJob",
+        "summary": "Status de um job de trabalhista",
+        "description": "Status de uma consulta assíncrona de trabalhista. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/veiculos/jobs/{jobId}": {
+      "get": {
+        "operationId": "getVeiculosJob",
+        "summary": "Status de um job de veículos",
+        "description": "Status de uma consulta assíncrona de veículos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
                 }
               }
             }
@@ -11365,6 +12139,10 @@
                 }
               }
             }
+          },
+          "fonte": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -12754,6 +13532,62 @@
             "items": {
               "$ref": "#/components/schemas/DominiosDominio"
             }
+          },
+          "confirmados": {
+            "type": "array",
+            "items": {},
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "possiveis": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "dominio": {
+                  "type": "string"
+                },
+                "tld": {
+                  "type": "string"
+                },
+                "motivo": {
+                  "type": "string"
+                },
+                "fonte": {
+                  "type": "string"
+                },
+                "confianca": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "cobertura": {
+            "type": "object",
+            "properties": {
+              "br_confirmados": {
+                "type": "number"
+              },
+              "br_total_registro_br": {
+                "nullable": true
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "job": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "statusUrl": {
+                "type": "string"
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -13504,6 +14338,26 @@
           "data_situacao_especial": {
             "type": "string",
             "nullable": true
+          },
+          "empresa_matriz": {
+            "type": "array",
+            "items": {},
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "inscricoes_estaduais": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uf": {
+                  "type": "string"
+                },
+                "inscricao_estadual": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -13592,6 +14446,14 @@
                 "type": "string"
               }
             }
+          },
+          "pais": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "origem": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -14127,6 +14989,79 @@
                 }
               }
             }
+          },
+          "vinculos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cargo": {
+                  "nullable": true
+                },
+                "status": {
+                  "type": "string"
+                },
+                "data_admissao": {
+                  "type": "string"
+                },
+                "data_desligamento": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "remuneracao": {
+                  "type": "object",
+                  "properties": {
+                    "valor": {
+                      "nullable": true,
+                      "type": "number"
+                    },
+                    "estimativa_minima": {
+                      "nullable": true,
+                      "type": "number"
+                    },
+                    "estimativa_maxima": {
+                      "nullable": true,
+                      "type": "number"
+                    },
+                    "faixa": {
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  }
+                },
+                "vinculo": {
+                  "type": "object",
+                  "properties": {
+                    "nivel": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "setor": {
+                      "type": "object",
+                      "properties": {
+                        "tipo": {
+                          "type": "string"
+                        },
+                        "codigo": {
+                          "type": "string"
+                        },
+                        "descricao": {
+                          "type": "string"
+                        }
+                      },
+                      "nullable": true
+                    }
+                  }
+                },
+                "fontes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -16236,6 +17171,10 @@
             "items": {
               "$ref": "#/components/schemas/PatentesPatente"
             }
+          },
+          "error": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -16606,6 +17545,26 @@
             "nullable": true,
             "description": "Data da situacao especial no formato YYYY-MM-DD (null se ausente)",
             "example": null
+          },
+          "empresa_matriz": {
+            "type": "array",
+            "items": {},
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "inscricoes_estaduais": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uf": {
+                  "type": "string"
+                },
+                "inscricao_estadual": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -17005,7 +17964,8 @@
           "complemento": {
             "type": "string",
             "description": "Complemento do endereco (apartamento, sala, etc.)",
-            "example": "401"
+            "example": "401",
+            "nullable": true
           },
           "bairro": {
             "type": "string",
@@ -17219,7 +18179,41 @@
               },
               "transportes": {
                 "type": "object",
-                "description": "[CPF] Resumo de transportes de produtos rurais"
+                "description": "[CPF] Resumo de transportes de produtos rurais",
+                "properties": {
+                  "total": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "volume_total": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "valor_total": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "produtos": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "por_produto": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "por_ano": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "parceiros": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  }
+                }
               },
               "autorizacoes": {
                 "type": "array",
@@ -17244,7 +18238,50 @@
               },
               "resumo": {
                 "type": "object",
-                "description": "[CPF] Totalizadores rurais"
+                "description": "[CPF] Totalizadores rurais",
+                "properties": {
+                  "area_total_ha": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_imoveis_sncr": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_imoveis_cafir": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_infracoes": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "valor_total_multas": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_autorizacoes": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_transportes": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "qtd_apolices_seguro": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "valor_total_indenizacoes": {
+                    "type": "number",
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  },
+                  "estados": {
+                    "type": "array",
+                    "items": {},
+                    "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+                  }
+                }
               },
               "imoveisRurais": {
                 "type": "array",
@@ -17257,6 +18294,15 @@
                 "type": "object",
                 "nullable": true,
                 "description": "[CNPJ] Perfil rural consolidado, ou null"
+              },
+              "seguros": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number",
+                  "items": {},
+                  "nullable": true
+                },
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
               }
             }
           }
@@ -17764,10 +18810,20 @@
             "nullable": true,
             "properties": {
               "telefone": {
-                "$ref": "#/components/schemas/PessoasTelefone"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PessoasTelefone"
+                  }
+                ],
+                "nullable": true
               },
               "email": {
-                "$ref": "#/components/schemas/PessoasEmail"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PessoasEmail"
+                  }
+                ],
+                "nullable": true
               }
             }
           }
@@ -17930,6 +18986,38 @@
             "items": {
               "$ref": "#/components/schemas/Movimentacao"
             }
+          },
+          "categoria": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "categoria_label": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "situacao": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "ultima_atualizacao": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "data_ultima_comunicacao": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "origem": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "nome_buscado": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "similaridade_max": {
+            "type": "number",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -18042,6 +19130,39 @@
             "items": {
               "$ref": "#/components/schemas/ProcessoDetalhado"
             }
+          },
+          "next_offset": {
+            "type": "number",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "nome": {
+            "type": "string",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "filtros": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "truncado": {
+            "type": "boolean",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "fontes": {
+            "type": "object",
+            "properties": {
+              "comunica": {
+                "type": "number"
+              },
+              "base": {
+                "type": "number"
+              }
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -18287,6 +19408,36 @@
             "example": {
               "repos": 15,
               "followers": 42
+            },
+            "properties": {
+              "__typename": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "ispb": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "agencia": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "conta_mascarada": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "tipo_conta": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "via": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              },
+              "criado_em": {
+                "type": "string",
+                "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+              }
             }
           }
         },
@@ -18991,6 +20142,15 @@
           },
           "resumo": {
             "$ref": "#/components/schemas/RuralResumo"
+          },
+          "seguros": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "items": {},
+              "nullable": true
+            },
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -19023,6 +20183,14 @@
             "items": {
               "type": "string"
             }
+          },
+          "qtd_apolices_seguro": {
+            "type": "number",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
+          },
+          "valor_total_indenizacoes": {
+            "type": "number",
+            "description": "Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo."
           }
         }
       },
@@ -19788,7 +20956,7 @@
       },
       "Regularidade": {
         "type": "object",
-        "description": "Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio nas respostas conferidas. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento.",
+        "description": "Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio em nenhuma resposta: pedir `modulos=protestos` para um CNPJ devolve `{}`. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento.",
         "additionalProperties": {
           "$ref": "#/components/schemas/RegularidadeModulo"
         }
@@ -19816,6 +20984,41 @@
               "type": "object",
               "additionalProperties": true
             }
+          }
+        }
+      },
+      "Job": {
+        "type": "object",
+        "description": "Um job assíncrono da Sherlocker. A consulta que o abre devolve o id (`jobId`, ou `job.id`) e você consulta a rota do job até `status` ser `completed` ou `failed`. Um id que não existe responde 200 com `status: failed` e `error: Job not found`, não 404. Só `dominios.getByCnpj` e `escrituras` abriram jobs nas chamadas conferidas. Os outros módulos têm a rota, mas não vimos qual consulta os abre.",
+        "properties": {
+          "jobId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "Valores vistos nos jobs e nas consultas que os abrem: `waiting`, `processing`, `completed` e `failed`.",
+            "example": "completed"
+          },
+          "createdAt": {
+            "type": "number",
+            "description": "Início do job, em milissegundos desde 1970."
+          },
+          "finishedAt": {
+            "type": "number",
+            "description": "Fim do job, em milissegundos desde 1970. Vem quando o job terminou, com `completed` ou `failed`."
+          },
+          "progress": {
+            "type": "number",
+            "description": "Veio sempre 0 nas respostas conferidas, até com o job concluído. Não use para mostrar andamento."
+          },
+          "error": {
+            "type": "string",
+            "description": "Por que o job falhou, por exemplo `crt.sh indisponível` quando a fonte externa está fora do ar."
+          },
+          "result": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "A resposta da consulta, quando `completed`. Cada módulo tem a sua."
           }
         }
       }

@@ -2037,6 +2037,266 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/aeronaves/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de aeronaves
+     * @description Status de uma consulta assíncrona de aeronaves. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getAeronavesJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/beneficios/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de benefícios
+     * @description Status de uma consulta assíncrona de benefícios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getBeneficiosJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/dividas/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de dívidas
+     * @description Status de uma consulta assíncrona de dívidas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getDividasJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/documentos/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de documentos
+     * @description Status de uma consulta assíncrona de documentos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getDocumentosJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/dominios/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de domínios
+     * @description Status de uma consulta assíncrona de domínios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getDominiosJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/empresas/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de empresas
+     * @description Status de uma consulta assíncrona de empresas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getEmpresasJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/licitacoes/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de licitações
+     * @description Status de uma consulta assíncrona de licitações. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getLicitacoesJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/nfe/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de nf-e
+     * @description Status de uma consulta assíncrona de nf-e. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getNfeJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/patentes/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de patentes
+     * @description Status de uma consulta assíncrona de patentes. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getPatentesJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/pessoas/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de pessoas
+     * @description Status de uma consulta assíncrona de pessoas. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getPessoasJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/regularidade/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de regularidade
+     * @description Status de uma consulta assíncrona de regularidade. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getRegularidadeJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/trabalhista/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de trabalhista
+     * @description Status de uma consulta assíncrona de trabalhista. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getTrabalhistaJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/veiculos/jobs/{jobId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Status de um job de veículos
+     * @description Status de uma consulta assíncrona de veículos. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+     */
+    get: operations["getVeiculosJob"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2374,6 +2634,8 @@ export interface components {
         /** @description Fim do periodo de carencia (ISO YYYY-MM-DD) ou null */
         carencia_ate?: string | null;
       }[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      fonte?: string;
     };
     Cartorio: {
       /** @description Código Nacional de Serventia (CNJ). */
@@ -3101,6 +3363,27 @@ export interface components {
        */
       total?: number;
       dominios?: components["schemas"]["DominiosDominio"][];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      confirmados?: unknown[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      possiveis?: {
+        dominio?: string;
+        tld?: string;
+        motivo?: string;
+        fonte?: string;
+        confianca?: string;
+      }[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      cobertura?: {
+        br_confirmados?: number;
+        br_total_registro_br?: unknown;
+      };
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      job?: {
+        id?: string;
+        status?: string;
+        statusUrl?: string;
+      };
     };
     DominiosTelefone: {
       /** @example 55 */
@@ -3343,6 +3626,13 @@ export interface components {
       }[];
       situacao_especial?: string | null;
       data_situacao_especial?: string | null;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      empresa_matriz?: unknown[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      inscricoes_estaduais?: {
+        uf?: string;
+        inscricao_estadual?: string;
+      }[];
     };
     EmpresasErrorResponse: {
       /** @example false */
@@ -3383,6 +3673,10 @@ export interface components {
         documento?: string;
         qualificacao?: string;
       } | null;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      pais?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      origem?: string;
     };
     /** @description Empresa vinculada a pessoa fisica (como socio ou responsavel) */
     EmpresaVinculada: {
@@ -3575,6 +3869,28 @@ export interface components {
           corporativo?: boolean;
         } | null;
       } | null;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      vinculos?: {
+        cargo?: unknown;
+        status?: string;
+        data_admissao?: string;
+        data_desligamento?: string | null;
+        remuneracao?: {
+          valor?: number | null;
+          estimativa_minima?: number | null;
+          estimativa_maxima?: number | null;
+          faixa?: string | null;
+        };
+        vinculo?: {
+          nivel?: string | null;
+          setor?: {
+            tipo?: string;
+            codigo?: string;
+            descricao?: string;
+          } | null;
+        };
+        fontes?: string[];
+      }[];
     };
     HistoricoItem: {
       /** @description Situacao da inscricao. String vazia quando ausente na fonte. */
@@ -4588,6 +4904,8 @@ export interface components {
       tipo?: "cpf" | "cnpj";
       total?: number;
       patentes?: components["schemas"]["PatentesPatente"][];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      error?: string;
     };
     /** @description Empresa facilitadora do PAT. Todos os campos sao string (nunca null). */
     PatFacilitadora: {
@@ -4810,6 +5128,13 @@ export interface components {
        * @example null
        */
       data_situacao_especial?: string | null;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      empresa_matriz?: unknown[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      inscricoes_estaduais?: {
+        uf?: string;
+        inscricao_estadual?: string;
+      }[];
     };
     /** @description Perfil cadastral completo de uma pessoa fisica */
     PerfilCadastralCpfResponse: {
@@ -5031,7 +5356,7 @@ export interface components {
        * @description Complemento do endereco (apartamento, sala, etc.)
        * @example 401
        */
-      complemento?: string;
+      complemento?: string | null;
       /**
        * @description Nome do bairro
        * @example SERRA
@@ -5182,7 +5507,22 @@ export interface components {
         /** @description [CPF] Imoveis no CAFIR */
         propriedades_cafir?: Record<string, never>[];
         /** @description [CPF] Resumo de transportes de produtos rurais */
-        transportes?: Record<string, never>;
+        transportes?: {
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          total?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          volume_total?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          valor_total?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          produtos?: unknown[];
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          por_produto?: unknown[];
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          por_ano?: unknown[];
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          parceiros?: unknown[];
+        };
         /** @description [CPF] Autorizacoes (AUTEX) agrupadas */
         autorizacoes?: Record<string, never>[];
         /** @description [CPF] Fiscalizacoes/infracoes ambientais */
@@ -5190,11 +5530,36 @@ export interface components {
         /** @description [CPF] Registros de produtor organico */
         produtor_organico?: Record<string, never>[];
         /** @description [CPF] Totalizadores rurais */
-        resumo?: Record<string, never>;
+        resumo?: {
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          area_total_ha?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_imoveis_sncr?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_imoveis_cafir?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_infracoes?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          valor_total_multas?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_autorizacoes?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_transportes?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          qtd_apolices_seguro?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          valor_total_indenizacoes?: number;
+          /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+          estados?: unknown[];
+        };
         /** @description [CNPJ] Imoveis rurais (SncrRow). Observe o nome de campo em camelCase. */
         imoveisRurais?: Record<string, never>[];
         /** @description [CNPJ] Perfil rural consolidado, ou null */
         perfil?: Record<string, never> | null;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        seguros?: {
+          [key: string]: number | null;
+        };
       } | null;
     };
     /** @description Socio ou administrador da empresa */
@@ -5555,8 +5920,8 @@ export interface components {
         } | null;
       } | null;
       contatos?: {
-        telefone?: components["schemas"]["PessoasTelefone"];
-        email?: components["schemas"]["PessoasEmail"];
+        telefone?: components["schemas"]["PessoasTelefone"] | null;
+        email?: components["schemas"]["PessoasEmail"] | null;
       } | null;
     };
     PessoasEndereco: {
@@ -5626,6 +5991,22 @@ export interface components {
       advogados?: components["schemas"]["Advogado"][];
       /** @description Ate 10 movimentacoes mais recentes (ordenadas por data desc) */
       movimentacoes?: components["schemas"]["Movimentacao"][];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      categoria?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      categoria_label?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      situacao?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      ultima_atualizacao?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      data_ultima_comunicacao?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      origem?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      nome_buscado?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      similaridade_max?: number;
     };
     ProcessosErrorResponse: {
       /** @example false */
@@ -5679,6 +6060,23 @@ export interface components {
       /** @description Offset aplicado */
       offset?: number;
       processos?: components["schemas"]["ProcessoDetalhado"][];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      next_offset?: number;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      has_more?: boolean;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      nome?: string;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      filtros?: {
+        [key: string]: unknown;
+      };
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      truncado?: boolean;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      fontes?: {
+        comunica?: number;
+        base?: number;
+      };
     };
     ProdutoAgrupado: {
       /** @description Nome do material/produto florestal */
@@ -5793,7 +6191,22 @@ export interface components {
        */
       nome?: string;
       /** @description Dados adicionais especificos da plataforma */
-      metadata?: Record<string, never>;
+      metadata?: {
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        __typename?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        ispb?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        agencia?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        conta_mascarada?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        tipo_conta?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        via?: string;
+        /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+        criado_em?: string;
+      };
     };
     RegistroErrorResponse: {
       /** @example false */
@@ -6150,6 +6563,10 @@ export interface components {
       infracoes?: components["schemas"]["FiscalizacaoRow"][];
       produtor_organico?: components["schemas"]["ProdutorRow"][];
       resumo?: components["schemas"]["RuralResumo"];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      seguros?: {
+        [key: string]: number | null;
+      };
     };
     RuralResumo: {
       area_total_ha?: number;
@@ -6160,6 +6577,10 @@ export interface components {
       qtd_autorizacoes?: number;
       qtd_transportes?: number;
       estados?: string[];
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      qtd_apolices_seguro?: number;
+      /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+      valor_total_indenizacoes?: number;
     };
     Search: {
       /** Format: uuid */
@@ -6470,7 +6891,7 @@ export interface components {
       /** @description ISO 8601 */
       criado_em?: string;
     };
-    /** @description Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio nas respostas conferidas. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento. */
+    /** @description Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio em nenhuma resposta: pedir `modulos=protestos` para um CNPJ devolve `{}`. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento. */
     Regularidade: {
       [key: string]: components["schemas"]["RegularidadeModulo"];
     };
@@ -6488,6 +6909,27 @@ export interface components {
       data?: {
         [key: string]: unknown;
       }[];
+    };
+    /** @description Um job assíncrono da Sherlocker. A consulta que o abre devolve o id (`jobId`, ou `job.id`) e você consulta a rota do job até `status` ser `completed` ou `failed`. Um id que não existe responde 200 com `status: failed` e `error: Job not found`, não 404. Só `dominios.getByCnpj` e `escrituras` abriram jobs nas chamadas conferidas. Os outros módulos têm a rota, mas não vimos qual consulta os abre. */
+    Job: {
+      jobId?: string;
+      /**
+       * @description Valores vistos nos jobs e nas consultas que os abrem: `waiting`, `processing`, `completed` e `failed`.
+       * @example completed
+       */
+      status?: string;
+      /** @description Início do job, em milissegundos desde 1970. */
+      createdAt?: number;
+      /** @description Fim do job, em milissegundos desde 1970. Vem quando o job terminou, com `completed` ou `failed`. */
+      finishedAt?: number;
+      /** @description Veio sempre 0 nas respostas conferidas, até com o job concluído. Não use para mostrar andamento. */
+      progress?: number;
+      /** @description Por que o job falhou, por exemplo `crt.sh indisponível` quando a fonte externa está fora do ar. */
+      error?: string;
+      /** @description A resposta da consulta, quando `completed`. Cada módulo tem a sua. */
+      result?: {
+        [key: string]: unknown;
+      };
     };
   };
   responses: {
@@ -7230,6 +7672,8 @@ export interface operations {
         content: {
           "application/json": {
             socios?: components["schemas"]["EmpresasSocio"][];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            empresa_matriz?: unknown[];
           };
         };
       };
@@ -7278,6 +7722,10 @@ export interface operations {
         content: {
           "application/json": {
             funcionarios?: components["schemas"]["Funcionario"][];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            total?: number;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            ativos?: number;
           };
         };
       };
@@ -7369,7 +7817,26 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            beneficiarias?: {
+              cnpj?: string;
+              razao_social?: string;
+              matriz_filial?: string;
+              uf?: string;
+              registro?: string;
+              municipio?: string;
+              data_cadastro?: string;
+              situacao?: string;
+              trab_ate_5sm?: string;
+              trab_acima_5sm?: string;
+              total_trabalhadores?: string;
+            }[];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            facilitadoras?: unknown[];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            fornecedoras?: unknown[];
+          };
         };
       };
       /** @description Parametro invalido */
@@ -7410,7 +7877,12 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            renuncias_fiscais?: {
+              [key: string]: string;
+            }[];
+          };
         };
       };
       /** @description Parametro invalido */
@@ -7870,6 +8342,60 @@ export interface operations {
               /** @description Descrição do código */
               descricao?: string;
             }[];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            naturezas?: {
+              total?: number;
+              dados?: {
+                codigo?: string;
+                descricao?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            cnaes?: {
+              total?: number;
+              dados?: {
+                codigo?: string;
+                descricao?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            qualificacoes?: {
+              total?: number;
+              dados?: {
+                codigo?: string;
+                descricao?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            motivos?: {
+              total?: number;
+              dados?: {
+                codigo?: string;
+                descricao?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            paises?: {
+              total?: number;
+              dados?: {
+                codigo?: string;
+                descricao?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            situacoes?: {
+              total?: number;
+              dados?: {
+                valor?: string;
+              }[];
+            };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            portes?: {
+              total?: number;
+              dados?: {
+                valor?: string;
+              }[];
+            };
           };
         };
       };
@@ -9035,6 +9561,21 @@ export interface operations {
               certidao_id: string | null;
               poll_url: string | null;
             };
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            publicamente_exposta?: boolean;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            cargos_publicos?: {
+              cargo?: string;
+              nivel?: unknown;
+              orgao?: string;
+              uf?: string;
+              mandatos?: {
+                inicio?: string;
+                fim?: unknown;
+                carencia_ate?: unknown;
+              }[];
+              fonte?: string;
+            }[];
           };
         };
       };
@@ -9083,6 +9624,10 @@ export interface operations {
         content: {
           "application/json": {
             enderecos?: components["schemas"]["PessoasEndereco"][];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            tipo_documento?: string;
           };
         };
       };
@@ -9131,6 +9676,10 @@ export interface operations {
         content: {
           "application/json": {
             empregos?: components["schemas"]["PessoasEmprego"][];
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            tipo_documento?: string;
           };
         };
       };
@@ -9677,7 +10226,22 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            tipo_documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            enderecos?: {
+              logradouro?: string;
+              numero?: string;
+              complemento?: string;
+              bairro?: string;
+              cidade?: string;
+              uf?: string;
+              cep?: string;
+            }[];
+          };
         };
       };
       /** @description Parametro invalido */
@@ -9718,7 +10282,22 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            tipo_documento?: string;
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            enderecos?: {
+              logradouro?: string;
+              numero?: string;
+              complemento?: unknown;
+              bairro?: string;
+              cidade?: string;
+              uf?: string;
+              cep?: string;
+            }[];
+          };
         };
       };
       /** @description Parametro invalido */
@@ -10605,7 +11184,15 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            /** @description Visto em respostas reais da API. Os arquivos OpenAPI da Sherlocker não trazem este campo. */
+            categorias?: {
+              slug?: string;
+              label?: string;
+              total_classes?: string;
+              total_processos?: number;
+            }[];
+          };
         };
       };
     };
@@ -10880,7 +11467,7 @@ export interface operations {
   getRegularidadeByCpf: {
     parameters: {
       query?: {
-        /** @description Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. */
+        /** @description Nome da pessoa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. Com o nome da pessoa, eles respondem (`found` ou `not_found`). */
         nome?: string;
         /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
         modulos?: string;
@@ -10908,7 +11495,7 @@ export interface operations {
   getRegularidadeByCnpj: {
     parameters: {
       query?: {
-        /** @description Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. */
+        /** @description Não muda a resposta para um CNPJ. `sancao-internacional` e `debarment-multilateral` voltam com `status: error` ("Nome é necessário...") mesmo com `nome`, `name` ou `razao_social`, então esses dois módulos não dão resposta para uma empresa. */
         nome?: string;
         /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
         modulos?: string;
@@ -11025,9 +11612,293 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": {
-            [key: string]: unknown;
-          };
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getAeronavesJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getBeneficiosJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getDividasJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getDocumentosJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getDominiosJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getEmpresasJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getLicitacoesJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getNfeJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getPatentesJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getPessoasJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getRegularidadeJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getTrabalhistaJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
+        };
+      };
+    };
+  };
+  getVeiculosJob: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        jobId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Status do job */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Job"];
         };
       };
     };

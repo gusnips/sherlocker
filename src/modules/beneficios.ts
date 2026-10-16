@@ -43,4 +43,21 @@ export class BeneficiosModule {
       options,
     );
   }
+
+  /**
+   * Status de um job de benefícios
+   *
+   * Status de uma consulta assíncrona de benefícios. Só a tool `job_status` do MCP da Sherlocker cita esta rota, nenhum arquivo OpenAPI a descreve. A rota existe: o formato foi conferido com uma chamada real.
+   */
+  getJob(
+    jobId: PathParams<"/beneficios/jobs/{jobId}", "get">["jobId"],
+    options?: CallOptions,
+  ) {
+    return this.http.send(
+      "get",
+      "/beneficios/jobs/{jobId}",
+      { path: { jobId } },
+      options,
+    );
+  }
 }
