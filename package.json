@@ -1,0 +1,74 @@
+{
+  "name": "sherlocker",
+  "version": "0.1.0",
+  "packageManager": "bun@1.4.2",
+  "description": "Unofficial TypeScript SDK for the Sherlocker API: look up Brazilian people and companies by CPF or CNPJ (registry, assets, lawsuits, debts, contacts)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "spec": "bun scripts/merge-spec.ts",
+    "generate": "bun scripts/generate.ts && prettier --write src",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src scripts",
+    "format": "prettier --write .",
+    "test": "bun test",
+    "prepublishOnly": "bun run lint && bun run typecheck && bun run build"
+  },
+  "keywords": [
+    "sherlocker",
+    "cpf",
+    "cnpj",
+    "brasil",
+    "due-diligence",
+    "kyc",
+    "background-check",
+    "api-client",
+    "typescript"
+  ],
+  "author": "Gustavo Salomé (gusnips)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusnips/sherlocker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gusnips/sherlocker/issues"
+  },
+  "homepage": "https://github.com/gusnips/sherlocker#readme",
+  "engines": {
+    "node": ">=18.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^26.6.5",
+    "eslint": "^10.12.0",
+    "openapi-typescript": "7.13.0",
+    "prettier": "^3.9.10",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1"
+  }
+}
