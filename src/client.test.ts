@@ -87,9 +87,12 @@ describe("SherlockerClient", () => {
       new URL(request.url).pathname.endsWith("/perfis")
         ? json({ job_id: "j1", status: "processando" }, 202)
         : json({
-            documento: "12345678000195",
-            tipo_documento: "cnpj",
-            modulos: [{ modulo: "ibama", status: "ok", irregularidades: [] }],
+            ibama: { found: false, status: "not_found" },
+            "ibama-autos": {
+              found: true,
+              status: "found",
+              data: [{ valor: 10 }],
+            },
           }),
     );
 
@@ -109,8 +112,10 @@ describe("SherlockerClient", () => {
       tipos_vinculo: ["documento", "nome"],
     });
 
-    const modulo: string | undefined = regularidade.modulos?.[0]?.modulo;
-    expect(modulo).toBe("ibama");
+    const autos = regularidade["ibama-autos"];
+    const found: boolean | undefined = autos?.found;
+    expect(found).toBe(true);
+    expect(autos?.data).toHaveLength(1);
     expect(new URL(requests[0].url).pathname).toBe(
       "/api/v1/regularidade/cnpj/12345678000195",
     );

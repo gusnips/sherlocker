@@ -1926,7 +1926,7 @@ export interface paths {
     };
     /**
      * Regularidade de um CPF
-     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
+     * @description Checks de regularidade e compliance, um por módulo: IBAMA, sanções nacionais e internacionais, Banco Central, PEP e outros. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O formato foi conferido com respostas reais de um CNPJ e de um CPF, e o conjunto de módulos pode variar por documento.
      */
     get: operations["getRegularidadeByCpf"];
     put?: never;
@@ -1946,7 +1946,7 @@ export interface paths {
     };
     /**
      * Regularidade de um CNPJ
-     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem de um app em produção que lê esta resposta e da tool `regularidade` do MCP da Sherlocker, e nenhuma chamada o confirmou.
+     * @description Checks de regularidade e compliance, um por módulo: IBAMA, sanções nacionais e internacionais, trabalho escravo e outros. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O formato foi conferido com respostas reais de um CNPJ e de um CPF, e o conjunto de módulos pode variar por documento.
      */
     get: operations["getRegularidadeByCnpj"];
     put?: never;
@@ -6451,24 +6451,6 @@ export interface components {
       /** @description Lista de restricoes do veiculo (ex: Alienacao Fiduciaria) */
       restricoes?: string[];
     };
-    Regularidade: {
-      documento?: string;
-      tipo_documento?: string;
-      modulos?: components["schemas"]["RegularidadeModulo"][];
-    };
-    RegularidadeModulo: {
-      modulo?: string;
-      status?: string;
-      irregularidades?: components["schemas"]["RegularidadeItem"][];
-    };
-    RegularidadeItem: {
-      tipo?: string;
-      descricao?: string;
-      orgao?: string | null;
-      data?: string | null;
-      valor?: number | null;
-      detalhes?: Record<string, never> | null;
-    };
     CreatePerfil: {
       /** @description CPF, com ou sem máscara. */
       documento: string;
@@ -6487,6 +6469,25 @@ export interface components {
       };
       /** @description ISO 8601 */
       criado_em?: string;
+    };
+    /** @description Um objeto com uma chave por módulo consultado. Chaves vistas em respostas reais: `ibama`, `ibama-autos`, `sancao-nacional`, `sancao-internacional`, `banco-central` (só CPF), `trabalho-escravo` (só CNPJ), `debarment-multilateral` e `pep` (só CPF). O módulo `protestos` que a tool do MCP cita não veio nas respostas conferidas. Pedir `modulos` devolve só os pedidos que a Sherlocker tem para aquele documento. */
+    Regularidade: {
+      [key: string]: components["schemas"]["RegularidadeModulo"];
+    };
+    RegularidadeModulo: {
+      /** @description Se a fonte tem registro do documento. */
+      found?: boolean;
+      /**
+       * @description Valores vistos: `found`, `not_found` e `error`.
+       * @example not_found
+       */
+      status?: string;
+      /** @description Presente quando `status` é `error`, por exemplo quando a fonte exige o nome e o `nome` não foi enviado. */
+      error?: string;
+      /** @description Os registros achados. Cada módulo tem os seus campos. */
+      data?: {
+        [key: string]: unknown;
+      }[];
     };
   };
   responses: {
@@ -10879,7 +10880,7 @@ export interface operations {
   getRegularidadeByCpf: {
     parameters: {
       query?: {
-        /** @description Nome da pessoa. Melhora a precisão da busca por CPF. */
+        /** @description Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. */
         nome?: string;
         /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
         modulos?: string;
@@ -10907,7 +10908,7 @@ export interface operations {
   getRegularidadeByCnpj: {
     parameters: {
       query?: {
-        /** @description Razão social da empresa. */
+        /** @description Nome da pessoa ou da empresa. Sem ele, os módulos `banco-central`, `sancao-internacional` e `debarment-multilateral` voltam com `status: error`. */
         nome?: string;
         /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
         modulos?: string;
