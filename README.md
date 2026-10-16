@@ -90,6 +90,17 @@ Sherlocker charges tokens for most queries. Some are free. The price of each one
 
 Some calls start a job and answer at once with an id. You ask for the result later. Sherlocker's descriptions say so for `analyses`, `operations`, `certidoes`, `escrituras` and `dossies`.
 
+Some calls open a job without a key. `dominios.getByCnpj` answers with a `job` object, and `escrituras.getByCnpj` with a `jobId`. Read the result with `dominios.getJob(job.id)` or `escrituras.getJob(jobId)`:
+
+```ts
+const answer = await sherlocker.dominios.getByCnpj("33000167000101");
+const job = await sherlocker.dominios.getJob(answer.job.id);
+
+console.log(job.status); // "waiting", "processing", "completed" or "failed"
+```
+
+A job id that does not exist answers 200 with `status: "failed"`, not 404, so check `status`. `progress` stays 0 even when the job is done, so do not use it for a progress bar. Thirteen modules have a `getJob` (`pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`), but only `dominios` was seen starting one. `dominios` can end as `failed` with an error like `crt.sh indisponível` when an outside source is down.
+
 An **idempotency key** is any unique string, like a UUID. If you send the same key and the same content again within 24 hours, Sherlocker gives the first answer back and does not charge a second time. Where Sherlocker requires one (`analyses.create`, `dossies.create`, `monitors.create` and a few more), the method asks for it in the last argument, and your editor will not let you skip it:
 
 ```ts
@@ -210,11 +221,14 @@ The types come from Sherlocker's OpenAPI files. Those files are behind Sherlocke
 - `regularidade.getByCpf` and `regularidade.getByCnpj` (IBAMA, sanctions, Banco Central, PEP). The answer is an object with one key per module, like `ibama-autos`, each with `found`, `status` and a `data` list. The modules differ by document, so index it by name.
 - `perfis.create`, which starts the job that `perfis.getJobStatus` reads.
 - The `classes`, `assuntos`, `areas`, `polos`, `include_movements` and `force` filters of `processos`, `limit` and `offset` on three `pessoas` endpoints, and `whatsapp` on `telefones.getByCnpj`.
+- Fields that real answers have and the files lack (83 across 23 endpoints, such as `pessoas.getByCpf` `publicamente_exposta` and `cargos_publicos`, or the `job` of `dominios.getByCnpj`). Each one says in its description that it was seen in real answers.
 - Three routes that only Sherlocker's docs name: `processos.getByNome` (the docs show the request, not the answer, so it is typed like `processos.getByCpf`), `processos.getJobResults` and `rural.getJob` (no answer type, you get a plain object).
 
-Sherlocker publishes no response shape for these, so their types are best effort. The `regularidade` shape was checked with one real answer for a CNPJ and one for a CPF. The others come from Sherlocker's docs and were not checked against a live answer.
+- `getJob` for the 13 modules in "Jobs that take time", and the `Job` type they return. Only Sherlocker's MCP server lists these routes.
 
-Some routes exist (they answer 401 without a token) but are not here, because only Sherlocker's MCP server lists them and nothing gives their answer: `GET /{module}/jobs/{jobId}` for `pessoas`, `empresas`, `veiculos`, `aeronaves`, `patentes`, `documentos`, `regularidade`, `trabalhista`, `nfe`, `dividas`, `beneficios`, `licitacoes` and `dominios`.
+Sherlocker publishes no response shape for these, so their types come from real answers, one per endpoint. They were checked with a Petrobras CNPJ and one CPF, and `bun run observe` compares them again. A field that was `null` or empty in that one answer may carry more in another, so check before you rely on it. The `regularidade` answer was checked with one CNPJ and one CPF. `nome` changes nothing for a CNPJ: `sancao-internacional` and `debarment-multilateral` stay `status: "error"` for a company.
+
+These answers were not checked, because they need a document that only a real person has, or they start a paid query: `empresas` by email or phone, `pessoas` by email or phone, `registro` by email or phone, `veiculos.getByPlaca`, `nfe`, `processos.getByNumero`, `escrituras` (its job answer was checked once) and the `dossies`, `monitors`, `lente` and `rastro` lists (the token used got 403).
 
 ## Keeping it current
 
@@ -226,7 +240,9 @@ bun run spec refs/sherlocker-docs/openapi
 bun run generate
 ```
 
-`bun run spec` joins the files and `scripts/overlay.json` into `openapi.json`. Some modules list the same endpoint, so it keeps the one from the module named after the endpoint. The overlay adds a whole endpoint only when the files lack it, and only the missing parameters when they have it. `bun run generate` stops with an error if two endpoints end up with one name. Do not edit `src/schema.d.ts`, `src/client.ts` or `src/modules/`. The script rewrites them.
+To compare the types with the live API, run `SHERLOCKER_TOKEN=... SHERLOCKER_TEST_CPF=... bun run observe`. It calls every readable endpoint with a Petrobras CNPJ and your test CPF, and lists the fields and nulls that `openapi.json` does not describe. It prints paths and types, never values. Each call can cost tokens, and `/escrituras` only runs with `--only escrituras`. Add `--patches` to print the `patches` that `scripts/overlay.json` needs.
+
+`bun run spec` joins the files and `scripts/overlay.json` into `openapi.json`. Some modules list the same endpoint, so it keeps the one from the module named after the endpoint. The overlay adds a whole endpoint only when the files lack it, and only the missing parameters when they have it. Its `patches` add fields to schemas the files describe, and mark a field nullable. They never change a field the files already have. `bun run generate` stops with an error if two endpoints end up with one name. Do not edit `src/schema.d.ts`, `src/client.ts` or `src/modules/`. The script rewrites them.
 
 ## License
 
