@@ -32,6 +32,7 @@ import { MonitorsModule } from "./modules/monitors";
 import { RastroModule } from "./modules/rastro";
 import { RegistroModule } from "./modules/registro";
 import { RendaModule } from "./modules/renda";
+import { RegularidadeModule } from "./modules/regularidade";
 
 export class SherlockerClient {
   readonly aeronaves: AeronavesModule;
@@ -66,6 +67,7 @@ export class SherlockerClient {
   readonly rastro: RastroModule;
   readonly registro: RegistroModule;
   readonly renda: RendaModule;
+  readonly regularidade: RegularidadeModule;
 
   constructor(config: SherlockerConfig | string) {
     const http = new Transport(
@@ -103,5 +105,6 @@ export class SherlockerClient {
     this.rastro = new RastroModule(http);
     this.registro = new RegistroModule(http);
     this.renda = new RendaModule(http);
+    this.regularidade = new RegularidadeModule(http);
   }
 }

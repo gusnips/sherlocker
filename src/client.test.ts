@@ -82,6 +82,56 @@ describe("SherlockerClient", () => {
     expect(name).toBe("Maria Souza");
   });
 
+  test("reaches the endpoints and filters that the vendor's OpenAPI files lack", async () => {
+    const { sherlocker, requests } = clientFor((request) =>
+      new URL(request.url).pathname.endsWith("/perfis")
+        ? json({ job_id: "j1", status: "processando" }, 202)
+        : json({
+            documento: "12345678000195",
+            tipo_documento: "cnpj",
+            modulos: [{ modulo: "ibama", status: "ok", irregularidades: [] }],
+          }),
+    );
+
+    const regularidade = await sherlocker.regularidade.getByCnpj(
+      "12345678000195",
+      { modulos: "ibama,protestos" },
+    );
+    await sherlocker.regularidade.getByCpf("12345678901", { nome: "Ana" });
+    await sherlocker.processos.getByCpf("12345678901", {
+      classes: "Execução Fiscal",
+      include_movements: "false",
+    });
+    await sherlocker.pessoas.getEmpregosByCpf("12345678901", { limit: 10 });
+    const job = await sherlocker.perfis.create({
+      documento: "12345678901",
+      perfil_id: "p1",
+      tipos_vinculo: ["documento", "nome"],
+    });
+
+    const modulo: string | undefined = regularidade.modulos?.[0]?.modulo;
+    expect(modulo).toBe("ibama");
+    expect(new URL(requests[0].url).pathname).toBe(
+      "/api/v1/regularidade/cnpj/12345678000195",
+    );
+    expect(Object.fromEntries(new URL(requests[0].url).searchParams)).toEqual({
+      modulos: "ibama,protestos",
+    });
+    expect(new URL(requests[1].url).searchParams.get("nome")).toBe("Ana");
+    expect(Object.fromEntries(new URL(requests[2].url).searchParams)).toEqual({
+      classes: "Execução Fiscal",
+      include_movements: "false",
+    });
+    expect(new URL(requests[3].url).searchParams.get("limit")).toBe("10");
+    expect(requests[4].method).toBe("POST");
+    expect(await requests[4].json()).toEqual({
+      documento: "12345678901",
+      perfil_id: "p1",
+      tipos_vinculo: ["documento", "nome"],
+    });
+    expect(job.job_id).toBe("j1");
+  });
+
   test("makes you pick an idempotency key where Sherlocker requires one", async () => {
     const { sherlocker, requests } = clientFor(() =>
       json({ id: "a1", status: "pending" }, 202),

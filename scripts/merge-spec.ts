@@ -4,6 +4,10 @@
 // openapi/. Clone that repo and pass the folder:
 //   git clone --depth 1 https://github.com/Sherlocker-LTDA/sherlocker-docs refs/sherlocker-docs
 //   bun run spec refs/sherlocker-docs/openapi
+//
+// scripts/overlay.json adds what those files lack but Sherlocker's live API and MCP server have.
+// An endpoint the files do not list is added whole. For one they list, only its missing
+// parameters are added.
 import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
@@ -29,6 +33,7 @@ interface Operation {
 }
 
 const BASE_URL = "https://221b-api.sherlocker.com.br/api/v1";
+const OVERLAY_FILE = "scripts/overlay.json";
 const METHODS = ["get", "post", "put", "patch", "delete"];
 const REF = /^#\/components\/([^/]+)\/(.+)$/;
 
@@ -200,6 +205,60 @@ for (const component of [...reached.values()].sort((a, b) =>
   section[nameFor(component)] = rewrite(component.source, component.body);
   sections.set(component.section, section);
 }
+
+const overlay: JsonObject = JSON.parse(readFileSync(OVERLAY_FILE, "utf8"));
+if (!isObject(overlay.paths) || !isObject(overlay.components)) {
+  throw new Error(`${OVERLAY_FILE} has no paths or components.`);
+}
+for (const [section, group] of Object.entries(overlay.components)) {
+  if (!isObject(group)) continue;
+  const target = sections.get(section) ?? {};
+  for (const [name, body] of Object.entries(group)) {
+    if (name in target) {
+      throw new Error(
+        `${OVERLAY_FILE}: ${section} ${name} is already in the vendor files.`,
+      );
+    }
+    target[name] = body;
+  }
+  sections.set(section, target);
+}
+
+// A parameter is told apart by where it goes and its name, whether it is written out or a $ref.
+function paramKey(param: Json): string {
+  if (!isObject(param)) throw new Error("A parameter is not an object.");
+  const { $ref } = param;
+  if (typeof $ref !== "string") return `${param.in} ${param.name}`;
+  const named = sections.get("parameters")?.[$ref.split("/").pop() ?? ""];
+  if (!isObject(named)) throw new Error(`No parameter ${$ref} to read.`);
+  return `${named.in} ${named.name}`;
+}
+
+function parametersOf(operation: JsonObject): Json[] {
+  const { parameters } = operation;
+  return Array.isArray(parameters) ? parameters : [];
+}
+
+let overlayOperations = 0;
+for (const [path, item] of Object.entries(overlay.paths)) {
+  if (!isObject(item)) continue;
+  for (const [method, body] of Object.entries(item)) {
+    if (!isObject(body)) continue;
+    const own = paths[path];
+    const known = isObject(own) ? own[method] : undefined;
+    if (isObject(known)) {
+      const have = new Set(parametersOf(known).map(paramKey));
+      known.parameters = [
+        ...parametersOf(known),
+        ...parametersOf(body).filter((param) => !have.has(paramKey(param))),
+      ];
+    } else {
+      paths[path] = { ...(isObject(own) ? own : {}), [method]: body };
+      overlayOperations += 1;
+    }
+  }
+}
+
 const components: JsonObject = {
   securitySchemes: {
     bearerAuth: {
@@ -225,7 +284,7 @@ const spec: JsonObject = {
   info: {
     title: "Sherlocker API",
     version: "1.0",
-    description: `Merged by scripts/merge-spec.ts from Sherlocker-LTDA/sherlocker-docs, openapi/, commit ${commit}.`,
+    description: `Merged by scripts/merge-spec.ts from Sherlocker-LTDA/sherlocker-docs, openapi/, commit ${commit}, and scripts/overlay.json.`,
   },
   servers: [{ url: BASE_URL }],
   security: [{ bearerAuth: [] }],
@@ -234,5 +293,5 @@ const spec: JsonObject = {
 };
 writeFileSync("openapi.json", `${JSON.stringify(spec, null, 2)}\n`);
 console.log(
-  `${operations.length} operations, ${reached.size} components from ${sources.length} files.`,
+  `${operations.length} operations from ${sources.length} files and ${overlayOperations} from ${OVERLAY_FILE}, ${reached.size} components.`,
 );

@@ -34,12 +34,13 @@ export class PessoasModule {
    */
   getEnderecosByCpf(
     cpf: PathParams<"/pessoas/cpf/{cpf}/enderecos", "get">["cpf"],
+    query?: Query<"/pessoas/cpf/{cpf}/enderecos", "get">,
     options?: CallOptions,
   ) {
     return this.http.send(
       "get",
       "/pessoas/cpf/{cpf}/enderecos",
-      { path: { cpf } },
+      { path: { cpf }, query },
       options,
     );
   }
@@ -51,12 +52,13 @@ export class PessoasModule {
    */
   getEmpregosByCpf(
     cpf: PathParams<"/pessoas/cpf/{cpf}/empregos", "get">["cpf"],
+    query?: Query<"/pessoas/cpf/{cpf}/empregos", "get">,
     options?: CallOptions,
   ) {
     return this.http.send(
       "get",
       "/pessoas/cpf/{cpf}/empregos",
-      { path: { cpf } },
+      { path: { cpf }, query },
       options,
     );
   }
@@ -86,12 +88,13 @@ export class PessoasModule {
    */
   getByEmail(
     email: PathParams<"/pessoas/email/{email}", "get">["email"],
+    query?: Query<"/pessoas/email/{email}", "get">,
     options?: CallOptions,
   ) {
     return this.http.send(
       "get",
       "/pessoas/email/{email}",
-      { path: { email } },
+      { path: { email }, query },
       options,
     );
   }

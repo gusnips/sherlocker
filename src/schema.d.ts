@@ -1917,6 +1917,66 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/regularidade/cpf/{cpf}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Regularidade de um CPF
+     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+     */
+    get: operations["getRegularidadeByCpf"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/regularidade/cnpj/{cnpj}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Regularidade de um CNPJ
+     * @description Checks de regularidade e compliance: IBAMA, sanções nacionais, Banco Central, sanções internacionais e protestos. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. O tipo da resposta vem do uso em produção do Olhary e da tool `regularidade` do MCP da Sherlocker.
+     */
+    get: operations["getRegularidadeByCnpj"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/perfis": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Executa um perfil
+     * @description Inicia a execução de um perfil sobre um CPF e devolve o `job_id`. Acompanhe o job em `perfis.getJobStatus`. O `perfil_id` é do seu contrato: a Sherlocker entrega o seu. Os arquivos OpenAPI da Sherlocker não trazem este endpoint. Vem da página "Perfil: Candidato RH" da documentação. A mesma `idempotencyKey` em até 24h devolve o mesmo job, sem cobrar de novo.
+     */
+    post: operations["createPerfil"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -6331,6 +6391,43 @@ export interface components {
       /** @description Lista de restricoes do veiculo (ex: Alienacao Fiduciaria) */
       restricoes?: string[];
     };
+    Regularidade: {
+      documento?: string;
+      tipo_documento?: string;
+      modulos?: components["schemas"]["RegularidadeModulo"][];
+    };
+    RegularidadeModulo: {
+      modulo?: string;
+      status?: string;
+      irregularidades?: components["schemas"]["RegularidadeItem"][];
+    };
+    RegularidadeItem: {
+      tipo?: string;
+      descricao?: string;
+      orgao?: string | null;
+      data?: string | null;
+      valor?: number | null;
+      detalhes?: Record<string, never> | null;
+    };
+    CreatePerfil: {
+      /** @description CPF, com ou sem máscara. */
+      documento: string;
+      /** @description ID do perfil, do seu contrato. */
+      perfil_id: string;
+      /** @description Tipos de vínculo aceitos nos processos. Padrão: ["documento"]. Com "nome", entram também processos ligados só pelo nome, e pode haver homônimos. */
+      tipos_vinculo?: ("documento" | "nome")[];
+    };
+    PerfilJobCreated: {
+      job_id?: string;
+      /** @example processando */
+      status?: string;
+      perfil?: {
+        perfil_id?: string | null;
+        label?: string | null;
+      };
+      /** @description ISO 8601 */
+      criado_em?: string;
+    };
   };
   responses: {
     /** @description dossie_custom_not_enabled: conta sem liberação de public_api_dossies_custom para modos personalizados ou matriz. Sem aceitação/cobrança. */
@@ -6361,6 +6458,22 @@ export interface components {
     Limit: number;
     MonitorId: string;
     SearchId: string;
+    /** @description Máximo de registros retornados */
+    ListLimit: number;
+    /** @description Número de registros a pular */
+    ListOffset: number;
+    /** @description Filtro por classe processual. */
+    ProcessosClasses: string;
+    /** @description Filtro por assunto. */
+    ProcessosAssuntos: string;
+    /** @description Filtro por área. */
+    ProcessosAreas: string;
+    /** @description Filtro por polo. */
+    ProcessosPolos: string;
+    /** @description Se "false", não traz as movimentações (padrão: traz). */
+    ProcessosIncludeMovements: string;
+    /** @description Se "true" junto com `realtime`, busca de novo mesmo os processos já vinculados (atualiza advogados e movimentações). */
+    ProcessosForce: string;
   };
   requestBodies: never;
   headers: never;
@@ -7418,6 +7531,18 @@ export interface operations {
         realtime?: string;
         /** @description Tipos de vinculo separados por virgula. Padrao: documento. Use documento,nome para incluir associacoes pelo nome. */
         tipos_vinculo?: string;
+        /** @description Filtro por classe processual. */
+        classes?: components["parameters"]["ProcessosClasses"];
+        /** @description Filtro por assunto. */
+        assuntos?: components["parameters"]["ProcessosAssuntos"];
+        /** @description Filtro por área. */
+        areas?: components["parameters"]["ProcessosAreas"];
+        /** @description Filtro por polo. */
+        polos?: components["parameters"]["ProcessosPolos"];
+        /** @description Se "false", não traz as movimentações (padrão: traz). */
+        include_movements?: components["parameters"]["ProcessosIncludeMovements"];
+        /** @description Se "true" junto com `realtime`, busca de novo mesmo os processos já vinculados (atualiza advogados e movimentações). */
+        force?: components["parameters"]["ProcessosForce"];
       };
       header?: never;
       path: {
@@ -8874,7 +8999,12 @@ export interface operations {
   };
   getEnderecosByCpf: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Máximo de registros retornados */
+        limit?: components["parameters"]["ListLimit"];
+        /** @description Número de registros a pular */
+        offset?: components["parameters"]["ListOffset"];
+      };
       header?: never;
       path: {
         /** @description CPF (11 digitos) */
@@ -8917,7 +9047,12 @@ export interface operations {
   };
   getEmpregosByCpfPessoas: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Máximo de registros retornados */
+        limit?: components["parameters"]["ListLimit"];
+        /** @description Número de registros a pular */
+        offset?: components["parameters"]["ListOffset"];
+      };
       header?: never;
       path: {
         /** @description CPF (11 digitos) */
@@ -9087,6 +9222,8 @@ export interface operations {
         limit?: number;
         /** @description Numero de registros a pular (padrao 0) */
         offset?: number;
+        /** @description Se "true", inclui a verificação de WhatsApp. */
+        whatsapp?: string;
       };
       header?: never;
       path: {
@@ -9280,6 +9417,18 @@ export interface operations {
         realtime?: string;
         /** @description Tipos de vinculo separados por virgula. Padrao: documento. Use documento,nome para incluir associacoes pelo nome. */
         tipos_vinculo?: string;
+        /** @description Filtro por classe processual. */
+        classes?: components["parameters"]["ProcessosClasses"];
+        /** @description Filtro por assunto. */
+        assuntos?: components["parameters"]["ProcessosAssuntos"];
+        /** @description Filtro por área. */
+        areas?: components["parameters"]["ProcessosAreas"];
+        /** @description Filtro por polo. */
+        polos?: components["parameters"]["ProcessosPolos"];
+        /** @description Se "false", não traz as movimentações (padrão: traz). */
+        include_movements?: components["parameters"]["ProcessosIncludeMovements"];
+        /** @description Se "true" junto com `realtime`, busca de novo mesmo os processos já vinculados (atualiza advogados e movimentações). */
+        force?: components["parameters"]["ProcessosForce"];
       };
       header?: never;
       path: {
@@ -9405,7 +9554,12 @@ export interface operations {
   };
   getPessoasByEmail: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Máximo de registros retornados */
+        limit?: components["parameters"]["ListLimit"];
+        /** @description Número de registros a pular */
+        offset?: components["parameters"]["ListOffset"];
+      };
       header?: never;
       path: {
         /** @description Endereco de email */
@@ -10658,6 +10812,86 @@ export interface operations {
         };
         content: {
           "application/json": components["schemas"]["VeiculosErrorResponse"];
+        };
+      };
+    };
+  };
+  getRegularidadeByCpf: {
+    parameters: {
+      query?: {
+        /** @description Nome da pessoa. Melhora a precisão da busca por CPF. */
+        nome?: string;
+        /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
+        modulos?: string;
+      };
+      header?: never;
+      path: {
+        /** @description CPF (11 dígitos) */
+        cpf: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Irregularidades achadas em cada módulo */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Regularidade"];
+        };
+      };
+    };
+  };
+  getRegularidadeByCnpj: {
+    parameters: {
+      query?: {
+        /** @description Razão social da empresa. */
+        nome?: string;
+        /** @description Módulos separados por vírgula: ibama, sancao-nacional, banco-central, sancao-internacional, protestos. Sem este parâmetro, todos. */
+        modulos?: string;
+      };
+      header?: never;
+      path: {
+        /** @description CNPJ (14 dígitos) */
+        cnpj: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Irregularidades achadas em cada módulo */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Regularidade"];
+        };
+      };
+    };
+  };
+  createPerfil: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreatePerfil"];
+      };
+    };
+    responses: {
+      /** @description Job criado */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PerfilJobCreated"];
         };
       };
     };
