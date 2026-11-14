@@ -244,6 +244,8 @@ To compare the types with the live API, run `SHERLOCKER_TOKEN=... SHERLOCKER_TES
 
 `bun run spec` joins the files and `scripts/overlay.json` into `openapi.json`. Some modules list the same endpoint, so it keeps the one from the module named after the endpoint. The overlay adds a whole endpoint only when the files lack it, and only the missing parameters when they have it. Its `patches` add fields to schemas the files describe, and mark a field nullable. They never change a field the files already have. `bun run generate` stops with an error if two endpoints end up with one name. Do not edit `src/schema.d.ts`, `src/client.ts` or `src/modules/`. The script rewrites them.
 
+`bun run generate` runs openapi-typescript with TypeScript 5.9.3 in a temporary `npx` install, because openapi-typescript does not work on TypeScript 7 yet. The repo itself uses TypeScript 7, oxlint, oxfmt and tsdown (`bun run lint`, `bun run format:check`, `bun run typecheck`, `bun run build`).
+
 ## License
 
 MIT. Not affiliated with Sherlocker.
