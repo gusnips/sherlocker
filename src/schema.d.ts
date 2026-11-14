@@ -2692,7 +2692,9 @@ export interface components {
             };
             /** @enum {string} */
             classificacao?:
-              "negativa" | "positiva" | "positiva_com_efeito_de_negativa";
+              | "negativa"
+              | "positiva"
+              | "positiva_com_efeito_de_negativa";
           } & {
             [key: string]: unknown;
           })
@@ -3161,7 +3163,8 @@ export interface components {
       origem?: "direta" | "originaria";
       /** @description Doador direto que repassou o recurso; presente apenas quando origem = originaria */
       intermediario?:
-        components["schemas"]["DoacaoIntermediario"] | (never | null);
+        | components["schemas"]["DoacaoIntermediario"]
+        | (never | null);
       beneficiario?: components["schemas"]["DoacaoBeneficiario"];
     };
     DoacoesPoliticasErrorResponse: {
@@ -6695,7 +6698,11 @@ export interface components {
         | "mei_alterado";
       /** @enum {string} */
       categoria?:
-        "socios" | "cadastro" | "atividade" | "situacao" | "tributario";
+        | "socios"
+        | "cadastro"
+        | "atividade"
+        | "situacao"
+        | "tributario";
       /**
        * @description alteracao = mudanca detectada; estado_inicial = linha de base do 1o mes coberto
        * @enum {string}
